@@ -1,7 +1,46 @@
 {
-  "index": "Introduction",
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "breadcrumb": false,
+      "typesetting": "article"
+    }
+  },
+  "getting-started": "Getting Started",
+  "alt-blog": {
+    "title": "ALT Tutors Blog",
+    "theme": {
+      "breadcrumb": false,
+      "typesetting": "article"
+    }
+  },
+  "alt-team": {
+    "title": "ALT Tutors Team",
+    "theme": {
+      "breadcrumb": false,
+      "typesetting": "article"
+    }
+  },
   "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "advanced": {
+    "title": "Advanced (Index)",
+    "theme": {
+      "typesetting": "article"
+    }
+  },
+  "---ui-ux": {
+    "title": "UI/UX",
+    "type": "separator"
+  },
+  "---front-end": {
+    "title": "Front-end",
+    "type": "separator"
+  },
+  "---back-end": {
+    "title": "Back-end",
+    "type": "separator"
+  },
+
   "about": {
     "title": "About",
     "type": "page"
