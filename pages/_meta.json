@@ -14,13 +14,6 @@
       "typesetting": "article"
     }
   },
-  "alt-team": {
-    "title": "ALT Tutors Team",
-    "theme": {
-      "breadcrumb": false,
-      "typesetting": "article"
-    }
-  },
   "another": "Another Page",
   "advanced": {
     "title": "Advanced (Index)",
@@ -42,13 +35,16 @@
   },
 
   "about": {
-    "title": "About",
-    "type": "page"
+    "title": "Team",
+    "type": "page",
+    "theme": {
+      "typesetting": "article"
+    }
   },
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://discordapp.com/users/263841596213035009",
     "newWindow": true
   }
 }

@@ -1,5 +1,6 @@
 {
+  "join": "Join the Team",
   "setup": "Environment Setup",
-  "workflow": "Development workflow",
+  "workflow": "Development Workflow",
   "primer": "Tech Stack Primer"
 }

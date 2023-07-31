@@ -1,3 +1,29 @@
-# About
+import { Callout } from "nextra/components";
+import { OptionTable } from "components/table";
+import membersData from "components/members/members.json";
 
-This is the about page! This page is shown on the navbar.
+# ALT Tutors - Members Database
+
+The development of the ALT Tutors project was made possible by the collaborative effort of a talented and dedicated team. Each member contributed their unique skills and expertise to create a successful platform. Below is a list of the team members along with their roles, and technical proficiencies:
+
+### Legend
+
+- 🎨 **UI/UX Designer**: Responsible for creating visually appealing and user-friendly interfaces to enhance the user experience (UX) of the website.
+
+- 🚀 **Front-end Developer**: In charge of implementing the visual elements and interactions on the client-side to ensure seamless user interactions and responsiveness.
+
+- ⚙️ **Back-end Developer**: Handles server-side logic, database management, and ensures smooth communication between the front-end and the server.
+
+### Current Members
+
+The following table showcases our current team members who are actively working on the project:
+
+import Members from "components/members"
+
+<Members current={true} />
+
+### Past Members
+
+The following table features team members who have contributed to the project in the past:
+
+<Members current={false} />

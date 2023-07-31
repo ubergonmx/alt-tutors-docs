@@ -1,6 +1,6 @@
 # ALT Tutors Documentation
 
-This documentation is for the ALT Tutors dev team, created from a templated called [Nextra](https://nextra.site).
+This documentation is for the ALT Tutors development team, created from a template called [Nextra](https://nextra.site).
 
 ## Local Development
 

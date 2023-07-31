@@ -7,5 +7,6 @@
     "source.fixAll.format": true
   },
   "git.enableSmartCommit": false,
-  "git.suggestSmartCommit": false
+  "git.suggestSmartCommit": false,
+  "mdx.experimentalLanguageServer": true
 }
