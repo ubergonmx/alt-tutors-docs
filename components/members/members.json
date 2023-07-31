@@ -1,0 +1,123 @@
+{
+    "members": [
+      {
+        "name": "Kizzel Mae Tulog",
+        "isTeamLead": true,
+        "isCurrentMember": false,
+        "roles": {
+          "UI/UX": true,
+          "Front-end": true,
+          "Back-end": false
+        },
+        "programmingLanguages": ["HTML", "CSS", "SCSS", "JavaScript", "Python", "C++"],
+        "frameworksAndLibraries": ["Bootstrap", "ReactJS"],
+        "tools": ["Figma", "Photoshop", "Illustrator", "Adobe XD"]
+      },
+      {
+        "name": "Marshal Amieron Pinpin",
+        "isTeamLead": false,
+        "isCurrentMember": true,
+        "roles": {
+          "UI/UX": true,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["C++", "Javascript", "Java", "C#", "C", "PHP"],
+        "frameworksAndLibraries": ["ReactJS", "MySQL Database", "Bootstrap"],
+        "tools": ["Pixlr X"]
+      },
+      {
+        "name": "JR Gregg Victor Lagman",
+        "isTeamLead": true,
+        "isCurrentMember": false,
+        "isTeamLead": true,
+        "roles": {
+          "UI/UX": true,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["Java", "Python", "JavaScript", "PHP", "HTML", "CSS", "SASS", "SCSS", "SQL"],
+        "frameworksAndLibraries": ["Laravel", "ReactJS", "Bootstrap", "Tailwind CSS"],
+        "tools": ["Git", "Figma", "NGINX", "Docker"]
+      },
+      {
+        "name": "Matt Derrick Alvarez",
+        "isTeamLead": true,
+        "isCurrentMember": true,
+        "roles": {
+          "UI/UX": true,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["Python", "C++", "HTML", "CSS", "SCSS"],
+        "frameworksAndLibraries": ["Bootstrap"],
+        "tools": ["Git"]
+      },
+      {
+        "name": "Kirk Patrick Pattawi",
+        "isTeamLead": false,
+        "isCurrentMember": true,
+        "roles": {
+          "UI/UX": false,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["Python", "C#", "Java", "HTML", "CSS"],
+        "frameworksAndLibraries": ["Django", "MySQL"],
+        "tools": ["Git", "Figma"]
+      },
+      {
+        "name": "Marc Andre Bascara",
+        "isTeamLead": false,
+        "isCurrentMember": false,
+        "roles": {
+          "UI/UX": true,
+          "Front-end": true,
+          "Back-end": false
+        },
+        "programmingLanguages": ["Python", "C#", "Java", "HTML", "CSS"],
+        "frameworksAndLibraries": ["Django", "MySQL"],
+        "tools": ["Git"]
+      },
+      {
+        "name": "Luis Valera",
+        "isTeamLead": false,
+        "isCurrentMember": false,
+        "roles": {
+          "UI/UX": false,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["Python", "HTML"],
+        "frameworksAndLibraries": ["Django", "MySQL"],
+        "tools": ["Git"]
+      },
+      {
+        "name": "Aaron Gabriel Palpallatoc",
+        "isTeamLead": true,
+        "isCurrentMember": true,
+        "roles": {
+          "UI/UX": false,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["HTML", "CSS", "JS/TS", "Java", "C#", "C"],
+        "frameworksAndLibraries": ["NodeJS", "Express", "ReactJS", "Tailwind CSS", "MongoDB", "MySQL"],
+        "tools": ["Git", "Photoshop", "Figma", "Postman", "Cloudflare", "Fly.io"]
+      },
+      {
+        "name": "Will Bryan Jose",
+        "isTeamLead": false,
+        "isCurrentMember": true,
+        "roles": {
+          "UI/UX": false,
+          "Front-end": true,
+          "Back-end": true
+        },
+        "programmingLanguages": ["HTML", "CSS", "JS/TS", "C", "C#", "Python", "SQL"],
+        "frameworksAndLibraries": ["Django", "MySQL", "NodeJS"],
+        "tools": ["Git", "Photoshop"]
+      }
+    ]
+  }
+  
