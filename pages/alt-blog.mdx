@@ -1,0 +1,595 @@
+import { Callout } from 'nextra/components'
+
+# ALT Tutors - Next.js Project Setup
+
+#### Author: Aaron Palpallatoc
+
+<Callout type="warning">This article is tentatively placed here and will be removed soon. For now, this will be updated regularly.</Callout>
+
+I will be documenting here the things I did for the setup. This will serve as my reference for future projects.
+
+## VSCode Extensions used
+
+- Prettier
+- ESLint
+- Tailwind CSS Intellisense
+- Tailwind Documentation
+- Tailwind Fold
+- Prisma
+- Figma for VSCode
+- Git Graph
+
+## Codebase Setup
+
+This is where I started. This is only for VSCode and does not include the setup for GitHub and Jira settings.
+
+1. Run the command bellow. Type your project name and enter **Yes** to all prompts but **No** to `customize the default import alias`. More info [here](https://nextjs.org/docs/getting-started/installation#automatic-installation).
+
+```bash
+npx create-next-app@latest
+```
+
+### Prettier, ESLint, Lint-staged, Husky
+
+More detailed guide [here](https://victorbruce82.medium.com/setting-up-eslint-prettier-and-husky-in-your-nextjs-project-b468fb56331) but here's the summary.
+
+2. In your project folder, run the following command.
+
+```bash
+npm i --save-dev eslint prettier prettier-plugin-tailwindcss husky lint-staged eslint-config-prettier
+```
+
+3.  Create `.prettier.json` file.
+
+```json
+{
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "semi": false,
+  "arrowParens": "always"
+}
+```
+
+4.  Create `.prettierignore` file.
+
+```
+node_modules
+build
+dist
+
+.next
+next-env.d.ts
+yarn.lock
+package-lock.json
+public
+```
+
+5.  Extend `prettier` in the eslint file `.eslintrc.json`.
+
+```json
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "next/core-web-vitals",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+    "no-console": ["warn"],
+    "no-unused-vars": ["warn"]
+  }
+}
+```
+
+> Reason? We want **eslint** to focus on code quality issues only and let prettier handle formatting our code. This is where the `eslint-config-prettier` package we installed earlier comes to play.
+
+6.  Install and configure husky and lint-staged.
+
+```bash
+npx mrm@2 lint-staged
+```
+
+> Double check if `npx lint-staged` exists in `.husky/pre-commit`.
+
+7. Include the following in `package.json` file.
+
+```json
+"scripts": {
+    ...
+    "types": "tsc --pretty --noEmit",
+    "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
+    "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
+    "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
+    "prettier:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
+    "lint": "next lint",
+    "prepare": "husky install",
+    "clean-local": "npx git-removed-branches --prune"
+}
+...
+"lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+}
+```
+
+> When your team clones your git repo, make sure [git](https://git-scm.com/downloads) is installed. They must run `npm i` and `npm run prepare` (or
+> `npx husky install`).
+
+8. Include `.eslintcache` to `.gitignore`
+
+```
+# eslint
+.eslintcache
+```
+
+### VSCode Settings and GitHub Actions
+
+Include the following files in version control for the team.
+
+9. Create `.vscode` folder and the following files inside it.
+
+```json filename="settings.json"
+{
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.format": true
+  },
+  "git.enableSmartCommit": false,
+  "git.suggestSmartCommit": false
+}
+```
+
+> The `editor.x` settings are for ESLint and Prettier VSCode extensions. The `git.x` settings are for manual staging in git.
+
+```json filename="typescript.code-snippets"
+{
+  "Typescript React Function Component": {
+    "prefix": "fc",
+    "body": [
+      "import { FC } from 'react'",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  $1",
+      "}",
+      "",
+      "const $TM_FILENAME_BASE: FC<${TM_FILENAME_BASE}Props> = ({$2}) => {",
+      "  return <div>$TM_FILENAME_BASE</div>",
+      "}",
+      "",
+      "export default $TM_FILENAME_BASE"
+    ],
+    "description": "Typescript React Function Component"
+  }
+}
+```
+
+```json filename="extensions.json"
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "alfredbirk.tailwind-documentation",
+    "bradlc.vscode-tailwindcss",
+    "stivo.tailwind-fold",
+    "prisma.prisma",
+    "figma.figma-vscode-extension",
+    "mhutchie.git-graph"
+  ]
+}
+```
+
+10. Create `.github/workflows/main.yml` file.
+
+```yaml filename="main.yml"
+name: Code Quality
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  ci:
+    name: Check types, format, and lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install packages
+        run: npm ci
+      - name: Check types
+        run: npm run types
+      - name: Run Prettier
+        run: npm run prettier:fix
+      - name: Run ESLint
+        run: npm run eslint:fix
+```
+
+### Tech Stack, Packages, and Optimizations
+
+11. Include the following in `tsconfig.json` file.
+
+```json
+"noUncheckedIndexedAccess": true
+```
+
+12. Install [_optimization_](#optimization) packages.
+
+```bash
+npm i @total-typescript/ts-reset server-only zod @tanstack/react-query axios date-fns nanoid
+```
+
+13. Create `src/types/reset.d.ts` file in types folder (refer [here](#file--folder-structure)).
+
+```ts
+import "@total-typescript/ts-reset";
+```
+
+14. Install [_backend_](#backend) packages.
+
+```bash
+npm i prisma @prisma/client next-auth @next-auth/prisma-adapter uploadthing @uploadthing/react react-dropzone
+```
+
+15. Initialize Prisma (make sure you have Prisma VSCode extension too).
+
+```bash
+npx prisma init --datasource-provider mysql
+```
+
+16. Add the following to `.vscode/settings.json`.
+
+```json
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": false
+  }
+```
+
+17. Add the `relationMode` to `db` in `prisma/schema.prisma` (for Planetscale).
+
+```prisma
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+```
+
+18. Install [_frontend_](#frontend) packages.
+
+```bash
+npm i clsx tailwind-merge class-variance-authority lucide-react react-hook-form
+```
+
+19. Create [folders](#src) in `src` folder.
+20. In `src/lib`, add the following files.
+
+```ts filename="db.ts"
+import { PrismaClient } from "@prisma/client";
+import "server-only";
+
+declare global {
+  // eslint-disable-next-line no-var, no-unused-vars
+  var cachedPrisma: PrismaClient;
+}
+
+let prisma: PrismaClient;
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.cachedPrisma) {
+    global.cachedPrisma = new PrismaClient();
+  }
+  prisma = global.cachedPrisma;
+}
+
+export const db = prisma;
+```
+
+```ts filename="utils.ts"
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { formatDistanceToNowStrict } from "date-fns";
+import locale from "date-fns/locale/en-US";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+const formatDistanceLocale = {
+  lessThanXSeconds: "just now",
+  xSeconds: "just now",
+  halfAMinute: "just now",
+  lessThanXMinutes: "{{count}}m",
+  xMinutes: "{{count}}m",
+  aboutXHours: "{{count}}h",
+  xHours: "{{count}}h",
+  xDays: "{{count}}d",
+  aboutXWeeks: "{{count}}w",
+  xWeeks: "{{count}}w",
+  aboutXMonths: "{{count}}m",
+  xMonths: "{{count}}m",
+  aboutXYears: "{{count}}y",
+  xYears: "{{count}}y",
+  overXYears: "{{count}}y",
+  almostXYears: "{{count}}y",
+};
+
+function formatDistance(token: string, count: number, options?: any): string {
+  options = options || {};
+
+  const result = formatDistanceLocale[
+    token as keyof typeof formatDistanceLocale
+  ].replace("{{count}}", count.toString());
+
+  if (options.addSuffix) {
+    if (options.comparison > 0) {
+      return "in " + result;
+    } else {
+      if (result === "just now") return result;
+      return result + " ago";
+    }
+  }
+
+  return result;
+}
+
+export function formatTimeToNow(date: Date): string {
+  return formatDistanceToNowStrict(date, {
+    addSuffix: true,
+    locale: {
+      ...locale,
+      formatDistance,
+    },
+  });
+}
+```
+
+```ts filename="auth.ts"
+import { db } from "@/lib/db";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { nanoid } from "nanoid";
+import { NextAuthOptions, getServerSession } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+
+export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(db),
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/sign-in",
+  },
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+        session.user.username = token.username;
+      }
+
+      return session;
+    },
+
+    async jwt({ token, user }) {
+      const dbUser = await db.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+
+      if (!dbUser) {
+        token.id = user!.id;
+        return token;
+      }
+
+      if (!dbUser.username) {
+        await db.user.update({
+          where: {
+            id: dbUser.id,
+          },
+          data: {
+            username: nanoid(10),
+          },
+        });
+      }
+
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+        username: dbUser.username,
+      };
+    },
+    redirect() {
+      return "/";
+    },
+  },
+};
+
+export const getAuthSession = () => getServerSession(authOptions);
+```
+
+22. Initialize shadcn-ui, and press <kbd>Enter</kbd> to all prompts except for `globals` which is located at `src/styles/globals.css`. Remove the default `src/app/globals.css` and fix import errors.
+
+```bash
+npx shadcn-ui@latest init
+```
+
+23. Install any shadcn-ui component. Practice `PascalCase` naming for components.
+
+```bash
+npx shadcn-ui@latest add button
+```
+
+### Dump
+
+This may be messy but I will be listing here the stack I had in mind before.
+
+#### Frontend
+
+- shadcn (for components)
+- lucide-react
+- clsx
+- tailwind-merge
+- class-variance-authority
+- react-hook-form
+
+Icons must be svgs, some sources are:
+
+- feathericon
+- lucide icon
+
+#### Backend
+
+- Prisma + NextAuth **vs** Drizzle ORM + Clerk Auth
+
+  > **Differences:** Prisma is widely known and beginner-friendly while Drizzle ORM is relatively new but faster in terms of query performance. You handle the user data and setup with NextAuth (time consuming), while Clerk handles all the setup for user auth and verification (easy setup but you don't hold the user data in your own db).
+
+  > **What I used:** For the ALT Tutors project, I used Prisma + NextAuth.
+
+- @prisma/client
+- @next-auth/prisma-adapter
+- uploadthing
+- Stripe
+
+#### Optimization
+
+- [zod](https://www.npmjs.com/package/zod) (validate `process.env`)
+- [axios](https://www.npmjs.com/package/axios)
+- [@tanstack/react-query](https://www.npmjs.com/package/@tanstack/react-query)
+- [@total-typescript/ts-reset](https://www.npmjs.com/package/@total-typescript/ts-reset)
+- [server-only](https://www.npmjs.com/package/server-only)
+- [date-fns](https://www.npmjs.com/package/date-fns)
+- [nanoid](https://www.npmjs.com/package/nanoid)
+
+### File & Folder Structure
+
+I will discuss here the implemented structure for the project
+
+- `prisma` - Prisma-related files go here
+  - `schema.prisma` - the main schema
+- `public` - for images and website icon
+- #### `src`
+  - `app` - handles routes of the website
+    - `api` - all API routes go here
+    - `(auth)` - auth pages (e.g., signin) go here
+    - `<page>` - any pages are placed within app folder
+  - `components` - all frontend components (Navbar, Signup, etc.) go here
+    - `ui` - atomic components (Button, Toast, etc.) go here
+  - `hooks` - custom hooks go here
+  - `lib` - database and utils go here
+    - `db.ts` - handles the Prisma db and client
+    - `utils.ts` - any util functions **must be** in here
+      - `cn ()` - always use this when combining classes
+  - `styles` - css (globals.css) go here
+  - `types` - type declaration files (`*.d.ts`) go here
+
+## Trunk-based Development
+
+- `git pull origin <branch>` if you want to pull changes from that `<branch>` to the current branch you're in.
+
+- renaming file names in Windows
+
+```bash
+git mv hello.txt Hello.txt
+
+git config --local core.ignorecase false
+git config --global core.ignorecase false
+```
+
+- [VSCode] Would you like to periodically run git fetch? **Yes**
+
+- Always notify the team whenever you add a package. Its also recommended to add it to **What to watch out for? (optional)** section in PR.
+
+### Pull Request
+
+#### Template
+
+```md
+# [keycode](link) title
+
+## What type of PR is this? (select all that apply)
+
+- 📦 Feature
+- 🐛 Bug Fix
+- 👨‍💻 Code Refactor
+- 🗒️ Documentation update
+
+## Description
+
+## What did you do?
+
+-
+
+## What to watch out for? (optional)
+
+-
+```
+
+> To add checkbox to PR type, add `[x]` after dash:
+>
+> `- [x] 📦 Feature`
+>
+> You can suggest other types in the Discord server.
+
+#### Sample content
+
+```md
+# [ALT-5](https://alt-ahead.atlassian.net/browse/ALT-5) Setup tech stack
+
+## What type of PR is this? (select all that apply)
+
+- [x] 📦 Feature
+- 🐛 Bug Fix
+- 👨‍💻 Code Refactor
+- [x] 🗒️ Documentation update
+
+## Description
+
+Install the necessary packages for the tech stack.
+...
+
+## What did you do?
+
+- Added the tech stack and the packages that will be used
+- Updated `README.md`
+
+## What to watch out for? (optional)
+
+- Possible conflict between db schema of Draft 3 and NextAuth (for Google OAuth)
+```

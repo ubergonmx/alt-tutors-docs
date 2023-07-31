@@ -14,13 +14,6 @@
       "typesetting": "article"
     }
   },
-  "another": "Another Page",
-  "advanced": {
-    "title": "Advanced (Index)",
-    "theme": {
-      "typesetting": "article"
-    }
-  },
   "---ui-ux": {
     "title": "UI/UX",
     "type": "separator"
@@ -31,6 +24,10 @@
   },
   "---back-end": {
     "title": "Back-end",
+    "type": "separator"
+  },
+  "---documentation": {
+    "title": "Documentation",
     "type": "separator"
   },
 

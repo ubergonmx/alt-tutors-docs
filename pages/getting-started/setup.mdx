@@ -1,3 +1,153 @@
-# Environment setup
+import { Callout, Steps, FileTree } from 'nextra/components'
 
-asd
+# Setup for the project
+
+<Callout type="warning">
+Make sure you are invited to the project on Github and Jira. If you are not, please contact the Team Leader.
+</Callout>
+
+After joining the team, you will need to set up your development environment to be able to work on the project. 
+This guide will walk you through the process of setting up your environment.
+
+## Prerequisites
+We will be using the following tools/technologies for this project:
+- [Visual Studio Code](https://code.visualstudio.com/download) (as our code editor)
+<Callout>
+Visual Studio Code is **highly recommended**, but you can use any IDE/code editor you like.
+</Callout>
+
+- [Node.js package manager](https://nodejs.org/en/download/) (as our package manager)
+- [Git](https://git-scm.com/downloads) (as our version control system) 
+<Callout> 
+**Windows users**: Make sure to select the option to add Git to your PATH during the installation process.
+</Callout>
+- [GitHub](https://github.com/ubergonmx/alt-tutors) (as our remote repository)
+- [Jira](https://alt-ahead.atlassian.net/jira/software/projects/ALT/boards/1/backlog) (as our project management tool)
+<Callout type="info">
+The GitHub and Jira links provided leads to the actual project.
+</Callout>
+
+## VS Code Extensions
+
+We will be using the following extensions for this project:
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Tailwind Documentation](https://marketplace.visualstudio.com/items?itemName=alfredbirk.tailwind-documentation)
+- [Tailwind Fold](https://marketplace.visualstudio.com/items?itemName=stivo.tailwind-fold) (Optional)
+- [Figma for VS Code](https://marketplace.visualstudio.com/items?itemName=figma.figma-vscode-extension) (Optional)
+- [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
+- [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)
+
+These are the extensions found in the `.vscode/extensions.json` file. 
+You can install them by running the following command in your terminal (press `Ctrl + Shift + ~` or go to `View > Terminal`):
+
+```bash copy
+code --install-extension dbaeumer.vscode-eslint esbenp.prettier-vscode mhutchie.git-graph bradlc.vscode-tailwindcss alfredbirk.tailwind-documentation stivo.tailwind-fold figma.figma-vscode-extension Prisma.prisma yoavbls.pretty-ts-errors
+```
+
+You can also find them in the recommended extensions section of VS Code.
+
+## Project Setup
+
+<Steps>
+### Clone the project
+
+Once you have installed all the prerequisites, you can now clone the project to your local machine.
+To do this, open your terminal and run the following command:
+
+```bash copy
+git clone https://github.com/ubergonmx/alt-tutors.git
+```
+
+### Install dependencies
+
+To do this, run the following command:
+
+```bash copy
+npm install
+```
+
+To know more about the dependencies we are using, read the [tech stack primer](/getting-started/primer).
+
+### Create a `.env` file
+
+To do this, run the following command:
+
+```bash copy
+cp .env.template .env
+```
+
+Make sure to fill in the values for the environment variables in the `.env` file.
+Ask the Team Leader for the values of the environment variables.
+
+### Prepare Husky
+
+To do this, run the following command:
+
+```bash copy
+npm run prepare
+```
+
+This will install the Git hooks that we will be using for this project.
+
+### Generate Prisma Client
+
+To do this, run the following command:
+
+```bash copy
+npx prisma generate
+```
+
+This will generate the Prisma Client based on the schema in `prisma/schema.prisma`.
+
+### Start the development server
+
+To do this, run the following command:
+
+```bash copy
+npm run dev
+```
+
+### Open the project in your browser
+
+Based on the default configuration, the project should be running on `http://localhost:3000`. 
+You can open this link in your browser to see the project.
+
+### Start coding!
+
+Once you have opened the project in your browser, you can now start coding! 🎉
+Make sure to read the [contribution guidelines](/getting-started/workflow#contributing-guidelines) before you start coding.
+
+If you're not familiar with the technologies we are using, read the [tech stack primer](/getting-started/primer) to familiarize yourself with them.
+
+
+</Steps>
+
+## Project Structure
+
+The project is structured as follows:
+
+<FileTree>
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="_meta.json" />
+    <FileTree.File name="contact.md" />
+    <FileTree.File name="index.mdx" />
+    <FileTree.Folder name="about">
+      <FileTree.File name="_meta.json" />
+      <FileTree.File name="legal.md" />
+      <FileTree.File name="index.mdx" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="_meta.json" />
+    <FileTree.File name="contact.md" />
+    <FileTree.File name="index.mdx" />
+    <FileTree.Folder name="about">
+      <FileTree.File name="_meta.json" />
+      <FileTree.File name="legal.md" />
+      <FileTree.File name="index.mdx" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
