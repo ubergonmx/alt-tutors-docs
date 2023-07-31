@@ -127,27 +127,52 @@ If you're not familiar with the technologies we are using, read the [tech stack 
 
 ## Project Structure
 
-The project is structured as follows:
+<Callout type="warning">Docs for project structure are under construction.</Callout>
+
+
+The project is structured as follows (only the important files/folders are shown):
 
 <FileTree>
-  <FileTree.Folder name="pages" defaultOpen>
-    <FileTree.File name="_meta.json" />
-    <FileTree.File name="contact.md" />
-    <FileTree.File name="index.mdx" />
-    <FileTree.Folder name="about">
-      <FileTree.File name="_meta.json" />
-      <FileTree.File name="legal.md" />
-      <FileTree.File name="index.mdx" />
+    <FileTree.Folder name="prisma" defaultOpen>
+        <FileTree.File name="schema.prisma" />
     </FileTree.Folder>
-  </FileTree.Folder>
-  <FileTree.Folder name="pages" defaultOpen>
-    <FileTree.File name="_meta.json" />
-    <FileTree.File name="contact.md" />
-    <FileTree.File name="index.mdx" />
-    <FileTree.Folder name="about">
-      <FileTree.File name="_meta.json" />
-      <FileTree.File name="legal.md" />
-      <FileTree.File name="index.mdx" />
+    {/* public folder */}
+    <FileTree.Folder name="public" defaultOpen>
+        <FileTree.File name="alt-tutors.png" />
     </FileTree.Folder>
-  </FileTree.Folder>
+    {/* src folder */}
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="app" defaultOpen>
+            <FileTree.Folder name="<route name>">
+                <FileTree.File name="layout.tsx" />
+                <FileTree.File name="page.tsx" />
+            </FileTree.Folder>
+            <FileTree.File name="layout.tsx" />
+            <FileTree.File name="page.tsx" />
+        </FileTree.Folder>
+        <FileTree.Folder name="components">
+            <FileTree.Folder name="ui">
+            </FileTree.Folder>
+        </FileTree.Folder>
+        <FileTree.Folder name="lib">
+        </FileTree.Folder>
+        <FileTree.Folder name="styles">
+        </FileTree.Folder>
+        <FileTree.Folder name="types">
+        </FileTree.Folder>
+    </FileTree.Folder>
+    {/* .env file */}
+    <FileTree.File name=".env" />
+    {/* .env.template file */}
+    <FileTree.File name=".env.template" />
+    {/* .gitignore file */}
+    <FileTree.File name=".gitignore" />
+    {/* .prettierignore file */}
+    <FileTree.File name=".prettierignore" />
+    {/* .prettierrc file */}
+    <FileTree.File name=".prettierrc" />
+    {/* package.json */}
+    <FileTree.File name="package.json" />
+    {/* README */}
+    <FileTree.File name="README.md" />
 </FileTree>
