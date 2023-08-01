@@ -18,6 +18,8 @@
     "title": "UI/UX",
     "type": "separator"
   },
+  "design-system": "Design System",
+
   "---front-end": {
     "title": "Front-end",
     "type": "separator"
