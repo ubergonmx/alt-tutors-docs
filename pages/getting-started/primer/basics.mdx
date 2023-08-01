@@ -1,0 +1,178 @@
+## JavaScript
+
+### Ternary Operator
+
+The ternary operator is a shorthand way of writing an if-else statement in JavaScript. It takes three operands: a `condition`, a `value` to return if the condition is **true**, and a `value` to return if the condition is **false**.
+
+```javascript
+const age = 18
+const isAdult = age >= 18 ? 'Yes' : 'No'
+console.log(isAdult) // Output: 'Yes'
+
+// equivalent to:
+let isAdult
+if (age >= 18) {
+  isAdult = 'Yes'
+} else {
+  isAdult = 'No'
+}
+console.log(isAdult) // Output: 'Yes'
+```
+
+### Optional Chaining
+
+Optional chaining is a way to access properties on an object without worrying about whether they exist or not. It uses the `?.` operator to check if a property exists before trying to access it.
+
+```javascript
+const person = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    state: 'NY',
+  },
+}
+
+const zipCode = person.address?.zipCode
+console.log(zipCode) // Output: undefined
+```
+
+### Map
+
+The `map()` method is used to iterate over an array and return a new array with modified items. It's commonly used in React to render a list of items.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5]
+
+const doubledNumbers = numbers.map((num) => num * 2)
+console.log(doubledNumbers) // Output: [2, 4, 6, 8, 10]
+```
+
+### Spread
+
+The spread operator `...` is used to spread elements of an array or object into another array or object. It's commonly used to concatenate arrays or merge objects.
+
+```javascript
+const arr1 = [1, 2, 3]
+const arr2 = [4, 5, 6]
+
+const combined = [...arr1, ...arr2]
+console.log(combined) // Output: [1, 2, 3, 4, 5, 6]
+```
+
+### Array Destructuring
+
+Array destructuring is a way to extract values from an array and assign them to variables in a single line of code.
+
+```javascript
+const numbers = [1, 2, 3]
+
+const [a, b, c] = numbers
+console.log(a) // Output: 1
+console.log(b) // Output: 2
+console.log(c) // Output: 3
+```
+
+### Object Destructuring
+
+Object destructuring is similar to array destructuring, but it's used to extract values from an object and assign them to variables.
+
+```javascript
+const person = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    state: 'NY',
+  },
+}
+
+const {
+  name,
+  age,
+  address: { city },
+} = person
+console.log(name) // Output: 'John'
+console.log(age) // Output: 30
+console.log(city) // Output: 'New York'
+```
+
+### Arrow Function (ES6)
+
+Arrow functions are a shorthand way of writing functions in JavaScript. They're commonly used in React components.
+
+```javascript
+const add = (a, b) => a + b
+console.log(add(1, 2)) // Output: 3
+```
+
+### JSX
+
+JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files. It's used in React to define the structure and appearance of components.
+
+```javascript
+import React from 'react'
+
+function App() {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <p>This is a React app.</p>
+    </div>
+  )
+}
+
+export default App
+```
+
+---
+
+## TypeScript
+
+### Types vs Interfaces
+
+In TypeScript, both types and interfaces are used to define the shape of an object or a function. They can be used interchangeably in many cases, but there are some differences between them.
+
+#### Interfaces
+
+Interfaces are used to define the structure of an object. They can also be used to define the shape of a function. Interfaces are typically used to describe objects that have a specific set of properties.
+
+```typescript
+interface Person {
+  name: string
+  age: number
+  address?: string
+}
+
+const john: Person = {
+  name: 'John',
+  age: 30,
+  address: '123 Main St.',
+}
+```
+
+In the above example, we define an interface `Person` that has three properties: `name`, `age`, and `address`. The `address` property is optional. We then create an object `john` that matches the shape of the `Person` interface.
+
+#### Types
+
+Types are used to define a set of values that a variable can take. They're typically used to describe the types of variables, parameters, and return values in a function.
+
+```typescript
+type MathOperation = (a: number, b: number) => number
+
+const add: MathOperation = (a, b) => a + b
+const subtract: MathOperation = (a, b) => a - b
+```
+
+In the above example, we define a type `MathOperation` that describes a function that takes two numbers as parameters and returns a number. We then create two functions `add` and `subtract` that match the shape of the `MathOperation` type.
+
+#### When to Use Types vs Interfaces
+
+In general, interfaces are used to describe the shape of an object and types are used to describe the types of variables and functions. However, in many cases, they can be used interchangeably.
+
+Here are some guidelines to help you decide when to use a type vs an interface:
+
+- Use an interface when you need to describe the structure of an object, including optional properties and methods.
+- Use a type when you need to describe a set of values that a variable can take, or the types of parameters and return values in a function.
+- If you need to extend an existing type or interface, use an interface.
+- If you need to create an alias for an existing type or interface, use a type.

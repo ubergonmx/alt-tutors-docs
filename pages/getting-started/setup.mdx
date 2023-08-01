@@ -3,33 +3,40 @@ import { Callout, Steps, FileTree } from 'nextra/components'
 # Setup for the project
 
 <Callout type="warning">
-Make sure you are invited to the project on Github and Jira. If you are not, please contact the Team Leader.
+  Make sure you are invited to the project on Github, Jira, and Figma. If you are not, please
+  contact the Team Leader.
 </Callout>
 
-After joining the team, you will need to set up your development environment to be able to work on the project. 
+After joining the team, you will need to set up your development environment to be able to work on the project.
 This guide will walk you through the process of setting up your environment.
 
 ## Prerequisites
+
 We will be using the following tools/technologies for this project:
+
 - [Visual Studio Code](https://code.visualstudio.com/download) (as our code editor)
-<Callout>
-Visual Studio Code is **highly recommended**, but you can use any IDE/code editor you like.
-</Callout>
+
+  <Callout>
+    Visual Studio Code is **highly recommended**, but you can use any IDE/code editor you like.
+  </Callout>
 
 - [Node.js package manager](https://nodejs.org/en/download/) (as our package manager)
-- [Git](https://git-scm.com/downloads) (as our version control system) 
-<Callout> 
-**Windows users**: Make sure to select the option to add Git to your PATH during the installation process.
-</Callout>
+- [Git](https://git-scm.com/downloads) (as our version control system)
+  <Callout>
+    **Windows users**: Make sure to select the option to add Git to your PATH during the
+    installation process.
+  </Callout>
 - [GitHub](https://github.com/ubergonmx/alt-tutors) (as our remote repository)
 - [Jira](https://alt-ahead.atlassian.net/jira/software/projects/ALT/boards/1/backlog) (as our project management tool)
-<Callout type="info">
-The GitHub and Jira links provided leads to the actual project.
-</Callout>
+- [Figma](https://www.figma.com/file/R3WjX2A4WFGTLWvMZUHGB7/ALT-Ahead-Design-2023?type=design&node-id=92%3A1089&mode=design&t=Uh7ubXV9vYiXuLU7-1) (as our design tool)
+  <Callout type="info">
+    The Github, Jira, and Figma links provided leads to the actual project.
+  </Callout>
 
-## VS Code Extensions
+### VS Code Extensions
 
 We will be using the following extensions for this project:
+
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
@@ -40,7 +47,7 @@ We will be using the following extensions for this project:
 - [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
 - [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)
 
-These are the extensions found in the `.vscode/extensions.json` file. 
+These are the extensions found in the `.vscode/extensions.json` file.
 You can install them by running the following command in your terminal (press `Ctrl + Shift + ~` or go to `View > Terminal`):
 
 ```bash copy
@@ -50,6 +57,10 @@ code --install-extension dbaeumer.vscode-eslint esbenp.prettier-vscode mhutchie.
 You can also find them in the recommended extensions section of VS Code.
 
 ## Project Setup
+
+<Callout>
+  For UI/UX designers, you can skip this section and proceed to the [design section](/design).
+</Callout>
 
 <Steps>
 ### Clone the project
@@ -112,7 +123,7 @@ npm run dev
 
 ### Open the project in your browser
 
-Based on the default configuration, the project should be running on `http://localhost:3000`. 
+Based on the default configuration, the project should be running on `http://localhost:3000`.
 You can open this link in your browser to see the project.
 
 ### Start coding!
@@ -121,7 +132,10 @@ Once you have opened the project in your browser, you can now start coding! 🎉
 Make sure to read the [contribution guidelines](/getting-started/workflow#contributing-guidelines) before you start coding.
 
 If you're not familiar with the technologies we are using, read the [tech stack primer](/getting-started/primer) to familiarize yourself with them.
+Addtionally, based on your selected role/s, you can read the following guides to help you get started:
 
+- [Front-end Developer](/front-end)
+- [Back-end Developer](/back-end)
 
 </Steps>
 
@@ -129,50 +143,45 @@ If you're not familiar with the technologies we are using, read the [tech stack 
 
 <Callout type="warning">Docs for project structure are under construction.</Callout>
 
-
 The project is structured as follows (only the important files/folders are shown):
 
 <FileTree>
-    <FileTree.Folder name="prisma" defaultOpen>
-        <FileTree.File name="schema.prisma" />
+  <FileTree.Folder name="prisma" defaultOpen>
+    <FileTree.File name="schema.prisma" />
+  </FileTree.Folder>
+  {/* public folder */}
+  <FileTree.Folder name="public" defaultOpen>
+    <FileTree.File name="alt-tutors.png" />
+  </FileTree.Folder>
+  {/* src folder */}
+  <FileTree.Folder name="src" defaultOpen>
+    <FileTree.Folder name="app" defaultOpen>
+      <FileTree.Folder name="<route name>">
+        <FileTree.File name="layout.tsx" />
+        <FileTree.File name="page.tsx" />
+      </FileTree.Folder>
+      <FileTree.File name="layout.tsx" />
+      <FileTree.File name="page.tsx" />
     </FileTree.Folder>
-    {/* public folder */}
-    <FileTree.Folder name="public" defaultOpen>
-        <FileTree.File name="alt-tutors.png" />
+    <FileTree.Folder name="components">
+      <FileTree.Folder name="ui"></FileTree.Folder>
     </FileTree.Folder>
-    {/* src folder */}
-    <FileTree.Folder name="src" defaultOpen>
-        <FileTree.Folder name="app" defaultOpen>
-            <FileTree.Folder name="<route name>">
-                <FileTree.File name="layout.tsx" />
-                <FileTree.File name="page.tsx" />
-            </FileTree.Folder>
-            <FileTree.File name="layout.tsx" />
-            <FileTree.File name="page.tsx" />
-        </FileTree.Folder>
-        <FileTree.Folder name="components">
-            <FileTree.Folder name="ui">
-            </FileTree.Folder>
-        </FileTree.Folder>
-        <FileTree.Folder name="lib">
-        </FileTree.Folder>
-        <FileTree.Folder name="styles">
-        </FileTree.Folder>
-        <FileTree.Folder name="types">
-        </FileTree.Folder>
-    </FileTree.Folder>
-    {/* .env file */}
-    <FileTree.File name=".env" />
-    {/* .env.template file */}
-    <FileTree.File name=".env.template" />
-    {/* .gitignore file */}
-    <FileTree.File name=".gitignore" />
-    {/* .prettierignore file */}
-    <FileTree.File name=".prettierignore" />
-    {/* .prettierrc file */}
-    <FileTree.File name=".prettierrc" />
-    {/* package.json */}
-    <FileTree.File name="package.json" />
-    {/* README */}
-    <FileTree.File name="README.md" />
+    <FileTree.Folder name="lib"></FileTree.Folder>
+    <FileTree.Folder name="styles"></FileTree.Folder>
+    <FileTree.Folder name="types"></FileTree.Folder>
+  </FileTree.Folder>
+  {/* .env file */}
+  <FileTree.File name=".env" />
+  {/* .env.template file */}
+  <FileTree.File name=".env.template" />
+  {/* .gitignore file */}
+  <FileTree.File name=".gitignore" />
+  {/* .prettierignore file */}
+  <FileTree.File name=".prettierignore" />
+  {/* .prettierrc file */}
+  <FileTree.File name=".prettierrc" />
+  {/* package.json */}
+  <FileTree.File name="package.json" />
+  {/* README */}
+  <FileTree.File name="README.md" />
 </FileTree>
