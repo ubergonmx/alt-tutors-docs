@@ -518,26 +518,6 @@ function add(a: number, b: number): number {
 
 console.log(add(1, 2)) // Output: 3
 console.log(add(1, 'asd')) // Error: Argument of type '"asd"' is not assignable to parameter of type 'number'.
-
-...
-
-type Person = {
-  name: string
-  age: number
-  address?: string
-}
-
-const john: Person = {
-  name: 'John',
-  age: 30,
-  address: '123 Main St.',
-}
-
-const jane: Person = {
-  name: 'Jane',
-  age: '30', // Error: Type '"30"' is not assignable to type 'number'.
-  address: '123 Main St.',
-}
 ```
 
 A real world example of using types is when you want to define the types of props in a React component.
@@ -562,11 +542,27 @@ const Person = ({ name, age, address }: Props) => {
 
 #### When to Use Types vs Interfaces
 
+In analogy with Java, types are like primitive types and interfaces are like classes. For example, in Java, you would define a string variable like this:
+
+```java
+String name = "John";
+name = 1; // Error: incompatible types: int cannot be converted to String
+```
+
+```typescript
+const name: string = 'John'
+name = 1 // Error: Type '1' is not assignable to type 'string'
+```
+
 In general, interfaces are used to describe the shape of an object and types are used to describe the types of variables and functions. However, in many cases, they can be used interchangeably.
 
 Here are some guidelines to help you decide when to use a type vs an interface:
 
-- Use an interface when you need to describe the structure of an object, including optional properties and methods.
-- Use a type when you need to describe a set of values that a variable can take, or the types of parameters and return values in a function.
-- If you need to extend an existing type or interface, use an interface.
-- If you need to create an alias for an existing type or interface, use a type.
+- Use interfaces when you want to define the shape of an object.
+- Use types when you want to define the types of variables, parameters, and return values in a function.
+- Use interfaces when you want to extend an existing interface.
+- Use types when you want to create an alias for a union type or a tuple type.
+
+```
+
+```
