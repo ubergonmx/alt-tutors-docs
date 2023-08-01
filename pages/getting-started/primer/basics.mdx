@@ -1,8 +1,70 @@
+import { Callout } from 'nextra/components'
+
 # JavaScript / TypeScript Basics
 
-This article cover some of the most common JavaScript and TypeScript basic concepts that you'll encounter in React and might be using for the project.
+This article cover some of the most common JavaScript and TypeScript basic concepts that you'll encounter and might be using for the project.
 
 ## JavaScript
+
+### JSX / TSX
+
+JSX is a syntax extension for JavaScript that allows you to write <ins>HTML-like</ins> code (e.g., `<div>{:html}`, `<p>{:html}`, etc.) in your JavaScript files, the same goes for TSX in TypeScript. It's used in React to define the structure and appearance of components.
+
+```jsx filename="App.jsx"
+import React from 'react'
+
+function App() {
+  return (
+    <div className="text-gray-100">
+      <h1>Hello, world!</h1>
+      <p>This is a React app.</p>
+    </div>
+  )
+}
+
+export default App
+```
+
+Notice that the `className{:jsx}` attribute is used instead of `class{:html}` to define the CSS class of an element. This is because `class` is a reserved keyword in JavaScript.
+
+---
+
+### Arrow Function (ES6)
+
+Arrow functions are a shorthand way of writing functions in JavaScript.
+
+```javascript /=>/ {2}
+// Arrow Function:
+const add = (a, b) => a + b
+// is equivalent to Anonymous Function:
+const add = function (a, b) {
+  return a + b
+}
+// also equivalent to Named Function:
+function add(a, b) {
+  return a + b
+}
+
+console.log(add(1, 2)) // Output: 3
+```
+
+Arrow functions are especially useful when you want to pass a function as a prop to a React component in short syntax.
+
+```jsx /=>/
+const Button = ({ onClick, children }) => {
+  return <button onClick={onClick}>{children}</button>
+}
+
+const App = () => {
+  const handleClick = () => {
+    console.log('Button clicked')
+  }
+
+  return <Button onClick={handleClick}>Click Me</Button>
+}
+```
+
+They are also useful for [map](#map), [filter](#filter), and [reduce](#reduce) methods.
 
 ### Ternary Operator
 
@@ -25,7 +87,17 @@ if (age >= 18) {
 console.log(isAdult) // Output: 'Yes'
 ```
 
-### Optional Chaining
+A good example of using the ternary operator is when you want to render a different component based on a condition.
+
+```javascript
+const isMobile = window.innerWidth < 768
+
+const Layout = () => {
+  return <div>{isMobile ? <MobileLayout /> : <DesktopLayout />}</div>
+}
+```
+
+### Optional Chaining Operator
 
 Optional chaining is a way to access properties on an object without worrying about whether they exist or not. It uses the `?.` operator to check if a property exists before trying to access it.
 
@@ -43,6 +115,12 @@ const zipCode = person.address?.zipCode
 console.log(zipCode) // Output: undefined
 ```
 
+<Callout>
+  Optional chaining is a safer way to access properties or methods that may be null or undefined,
+  and it is *generally preferred* over the [non-null assertion
+  operator](#non-null-assertion-operator).
+</Callout>
+
 ### Map
 
 The `map()` method is used to iterate over an array and return a new array with modified items. It's commonly used in React to render a list of items.
@@ -50,45 +128,212 @@ The `map()` method is used to iterate over an array and return a new array with 
 ```javascript /map/ {3}
 const numbers = [1, 2, 3, 4, 5]
 
-const doubledNumbers = numbers.map((num) => num * 2)
+const doubledNumbers = numbers.map((num) => num * 2) // uses Arrow Function
+// also equivalent to:
+const doubledNumbers = numbers.map(function (num) {
+  return num * 2
+}) // uses Anonymous Function
+// also equivalent to:
+const doubledNumbers = numbers.map(double) // uses Named Function
+function double(num) {
+  return num * 2
+}
+
 console.log(doubledNumbers) // Output: [2, 4, 6, 8, 10]
 ```
 
-### Spread
+A good example of using the `map()` method is when you want to render a list of items in React.
 
-The spread operator `...` is used to spread elements of an array or object into another array or object. It's commonly used to concatenate arrays or merge objects.
+```jsx /map/
+const items = [
+  { id: 1, name: 'iPhone', price: 1000 },
+  { id: 2, name: 'iPad', price: 500 },
+  { id: 3, name: 'MacBook', price: 2000 },
+]
 
-```javascript {4}
-const arr1 = [1, 2, 3]
-const arr2 = [4, 5, 6]
-
-const combined = [...arr1, ...arr2]
-console.log(combined) // Output: [1, 2, 3, 4, 5, 6]
+const ItemList = () => {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>
+          {item.name} - ${item.price}
+        </li>
+      ))}
+    </ul>
+  )
+}
 ```
 
-### Array Destructuring
+The syntax is `array.map(function(currentValue, index?, arr?), thisValue?){:js}`.
+The `function` takes three arguments: `currentValue` (the current item in the array), `index` (the index of the current item; optional), and `arr` (the array being iterated over; optional).
+
+### Filter
+
+The `filter()` method is used to iterate over an array and return a new array with items that pass a certain condition. It's commonly used in React to filter a list of items.
+
+```javascript /filter/ {3}
+const numbers = [1, 2, 3, 4, 5]
+
+const evenNumbers = numbers.filter((num) => num % 2 === 0) // uses Arrow Function
+// also equivalent to:
+const evenNumbers = numbers.filter(function (num) {
+  return num % 2 === 0
+}) // uses Anonymous Function
+// also equivalent to:
+const evenNumbers = numbers.filter(isEven) // uses Named Function
+function isEven(num) {
+  return num % 2 === 0
+}
+
+console.log(evenNumbers) // Output: [2, 4]
+```
+
+The syntax is `array.filter(function(currentValue, index?, arr?), thisValue?){:js}`.
+The `function` takes three arguments: `currentValue` (the current item in the array), `index` (the index of the current item), and `arr` (the array being iterated over).
+
+A good example of using the `filter()` method is when you want to filter a list of items in React.
+
+```jsx /items.filter/
+const items = [
+  { id: 1, name: 'iPhone', price: 1000 },
+  { id: 2, name: 'iPad', price: 500 },
+  { id: 3, name: 'MacBook', price: 2000 },
+]
+
+const ItemList = () => {
+  const [search, setSearch] = useState('')
+
+  const filteredItems = items.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <div>
+      <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
+      <ul>
+        {filteredItems.map((item) => (
+          <li key={item.id}>
+            {item.name} - ${item.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+### Reduce
+
+The `reduce()` method is used to iterate over an array and return a single value. It's commonly used in React to calculate a total value from a list of items.
+
+```javascript /reduce/ {3}
+const numbers = [1, 2, 3, 4, 5]
+
+const sum = numbers.reduce((acc, num) => acc + num, 0) // uses Arrow Function
+// also equivalent to:
+const sum = numbers.reduce(function (acc, num) {
+  return acc + num
+}, 0) // uses Anonymous Function
+// also equivalent to:
+const sum = numbers.reduce(add, 0) // uses Named Function
+function add(acc, num) {
+  return acc + num
+}
+
+console.log(sum) // Output: 15
+```
+
+The syntax is `array.reduce(function(accumulator, currentValue, index?, arr?), initialValue?){:js}`.
+The `function` takes four arguments: `accumulator` (the accumulated value), `currentValue` (the current item in the array), `index` (the index of the current item), and `arr` (the array being iterated over).
+
+A good example of using the `reduce()` method is when you want to calculate the total price of items in a shopping cart.
+
+```javascript
+const cart = [
+  { name: 'iPhone', price: 1000 },
+  { name: 'iPad', price: 500 },
+  { name: 'MacBook', price: 2000 },
+]
+
+const totalPrice = cart.reduce((acc, item) => acc + item.price, 0)
+console.log(totalPrice) // Output: 3500
+```
+
+It can also be used to group items by a certain property.
+
+```javascript
+const cart = [
+  { name: 'iPhone', price: 1000 },
+  { name: 'iPad', price: 500 },
+  { name: 'MacBook', price: 2000 },
+]
+
+const groupedItems = cart.reduce(
+  (acc, item) => {
+    const key = item.price > 1000 ? 'expensive' : 'cheap'
+    acc[key].push(item)
+    return acc
+  },
+  { expensive: [], cheap: [] }
+)
+
+console.log(groupedItems)
+// Output:
+// {
+//   expensive: [
+//     { name: 'iPhone', price: 1000 },
+//     { name: 'MacBook', price: 2000 },
+//   ],
+//   cheap: [{ name: 'iPad', price: 500 }],
+// }
+```
+
+### Destructuring
+
+#### Array
 
 Array destructuring is a way to extract values from an array and assign them to variables in a single line of code. You simply use square brackets `[]` to define the variables and assign them to the array.
 
 ```javascript {3}
-const arr = [1, 2, 3]
+const arr = [1, 2, 3, 4, 5]
 
 const [asd, sample, c] = arr
 // is equivalent to:
 const asd = arr[0]
 const sample = arr[1]
-const c = arr[2]
 
 console.log(asd) // Output: 1
 console.log(sample) // Output: 2
 console.log(c) // Output: 3
 ```
 
-Take note that the order of the variables matters. The first variable will be assigned the first value in the array, the second variable will be assigned the second value, and so on.
+<Callout info="info">
+  Take note that the order of the variables matters. The first variable will be assigned the first
+  value in the array, the second variable will be assigned the second value, and so on.
+</Callout>
 
-### Object Destructuring
+An example of using array destructuring is when you want to swap the values of two variables without using a temporary variable.
 
-Object destructuring is similar to array destructuring, but it's used to extract values from an object and assign them to variables. You also use curly braces `{}` to define the variables and assign them to the object.
+```javascript
+let a = 1
+let b = ((2)[(a, b)] = [b, a])
+```
+
+We can also see this case with the `useState{:js}` hook in React. The `useState{:js}` hook returns an array with two items:
+
+1. the `state value`
+2. a `function` to update the state value.
+
+```javascript
+const [count, setCount] = useState(0)
+
+setCount(1)
+console.log(count) // Output: 1
+```
+
+#### Object
+
+Object destructuring is similar to array destructuring, but it's order-independent. You also use curly braces `{}` to define the variables and assign them to the object.
 
 ```javascript {10,11,12,13,14}
 const person = {
@@ -101,13 +346,13 @@ const person = {
 }
 
 const {
-  name,
   age,
+  name,
   address: { city },
 } = person
 // is equivalent to:
-const name = person.name
 const age = person.age
+const name = person.name
 const city = person.address.city
 
 console.log(name) // Output: 'John'
@@ -115,44 +360,128 @@ console.log(age) // Output: 30
 console.log(city) // Output: 'New York'
 ```
 
-### Arrow Function (ES6)
+### Spread Operator
 
-Arrow functions are a shorthand way of writing functions in JavaScript. They're commonly used in React components.
+The spread operator `...` is used to spread elements of an array or object into another array or object. It's commonly used to concatenate arrays or merge objects.
 
-```javascript /=>/
-const add = (a, b) => a + b
-// is equivalent to:
-function add(a, b) {
-  return a + b
-}
+```javascript {4}
+const arr1 = [1, 2, 3]
+const arr2 = [4, 5, 6]
 
-console.log(add(1, 2)) // Output: 3
+const combined = [...arr1, ...arr2]
+console.log(combined) // Output: [1, 2, 3, 4, 5, 6]
 ```
 
-### JSX
-
-JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files. It's used in React to define the structure and appearance of components.
+A real world example of using the spread operator is when you want to add a new item to an array without mutating the original array.
 
 ```javascript
-import React from 'react'
-
-function App() {
-  return (
-    <div className="text-gray-100">
-      <h1>Hello, world!</h1>
-      <p>This is a React app.</p>
-    </div>
-  )
-}
-
-export default App
+const arr = [1, 2, 3]
+const newArr = [...arr, 4]
+console.log(newArr) // Output: [1, 2, 3, 4]
 ```
 
-Notice that the `className{:jsx}` attribute is used instead of `class{:html}` to define the CSS class of an element. This is because `class` is a reserved keyword in JavaScript.
+It's also commonly used in objects, just like in React to merge the props of a component with the props passed in by the parent component.
 
----
+```javascript /.../ {8}
+const person = {
+  name: 'John',
+  age: 30,
+}
+
+const newPerson = {
+  ...person,
+  name: 'Jane',
+  address: 'New York',
+}
+
+console.log(newPerson) // Output: { name: 'Jane', age: 30, address: 'New York' }
+```
+
+<Callout>
+  Take note that the order of the spread operator matters. If you spread an object before another
+  object, the properties of the first object will be overwritten by the second object.
+</Callout>
+
+Spread operator can also perform a shallow copy of the array or object. If you want to
+do a deep copy, you'll need to use a library like
+[lodash](https://lodash.com/docs/4.17.15#cloneDeep).
+
+### Template Literals
+
+Template literals, using backtick, are a way to concatenate strings and variables in JavaScript. They're commonly used in React to render dynamic content.
+
+```javascript {4}
+const name = 'John'
+const age = 30
+
+const message = `Hello, my name is ${name} and I'm ${age} years old.`
+console.log(message) // Output: 'Hello, my name is John and I'm 30 years old.'
+```
+
+### Nullish Coalescing Operator
+
+Nullish coalescing is a way to check if a value is `null` or `undefined` and return a default value if it is. It's commonly used in React to set default props.
+
+```javascript /??/ {3}
+const name = null
+const defaultName = 'John'
+
+const person = {
+  firstName: name ?? defaultName,
+}
+
+console.log(person.firstName) // Output: 'John'
+```
+
+### Logical OR Operator
+
+The logical OR operator `||` is a way to check if a value is falsy and return a default value if it is. It's commonly used in React to set default props.
+
+```javascript /||/ {3}
+const name = ''
+const defaultName = 'John'
+
+const person = {
+  firstName: name || defaultName,
+}
+
+console.log(person.firstName) // Output: 'John'
+```
+
+Nullish coalescing is different from the logical OR operator `||` because it only returns the
+default value if the value is `null` or `undefined`. The logical OR operator returns the default
+value if the value is falsy, which includes `null`, `undefined`, `0`, `''`, `false`, and `NaN`.
+
+<Callout type="info">
+  More info about the difference between nullish coalescing and logical OR operator
+  [here](https://stackoverflow.com/a/61481631/15544151).
+</Callout>
 
 ## TypeScript
+
+### Non-null Assertion Operator
+
+The non-null assertion operator is a way to tell TypeScript that a value is not null or undefined. It uses the `!` operator to tell TypeScript that a value is not null or undefined.
+
+```javascript /!/ {10}
+const person = {
+  name: 'John',
+  age: 30,
+  address: {
+    city: 'New York',
+    state: 'NY',
+  },
+}
+
+const zipCode = person.address.zipCode!
+console.log(zipCode) // Output: undefined
+```
+
+<Callout>
+  This is useful when you are **100% sure** that a value is not null or undefined, but TypeScript
+  doesn't know it yet. Just be careful when using the non-null assertion operator because{' '}
+  <ins>it can lead to runtime errors if the value is actually null or undefined</ins>.
+</Callout>
 
 ### Types vs Interfaces
 
@@ -183,13 +512,53 @@ In the above example, we define an interface `Person` that has three properties:
 Types are used to define a set of values that a variable can take. They're typically used to describe the types of variables, parameters, and return values in a function.
 
 ```typescript
-type MathOperation = (a: number, b: number) => number
+function add(a: number, b: number): number {
+  return a + b
+}
 
-const add: MathOperation = (a, b) => a + b
-const subtract: MathOperation = (a, b) => a - b
+console.log(add(1, 2)) // Output: 3
+console.log(add(1, 'asd')) // Error: Argument of type '"asd"' is not assignable to parameter of type 'number'.
+
+...
+
+type Person = {
+  name: string
+  age: number
+  address?: string
+}
+
+const john: Person = {
+  name: 'John',
+  age: 30,
+  address: '123 Main St.',
+}
+
+const jane: Person = {
+  name: 'Jane',
+  age: '30', // Error: Type '"30"' is not assignable to type 'number'.
+  address: '123 Main St.',
+}
 ```
 
-In the above example, we define a type `MathOperation` that describes a function that takes two numbers as parameters and returns a number. We then create two functions `add` and `subtract` that match the shape of the `MathOperation` type.
+A real world example of using types is when you want to define the types of props in a React component.
+
+```typescript
+type Props = {
+  name: string
+  age: number
+  address?: string
+}
+
+const Person = ({ name, age, address }: Props) => {
+  return (
+    <div>
+      <p>Name: {name}</p>
+      <p>Age: {age}</p>
+      {address && <p>Address: {address}</p>}
+    </div>
+  )
+}
+```
 
 #### When to Use Types vs Interfaces
 
