@@ -18,7 +18,9 @@
     "title": "UI/UX",
     "type": "separator"
   },
-  "design-system": "Design System",
+  "figma-layout": "Figma Layout",
+  "design-direction": "Design Progress",
+  "resource-reference": "Resource Reference",
 
   "---front-end": {
     "title": "Front-end",
