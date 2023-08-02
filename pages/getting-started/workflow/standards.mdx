@@ -1,0 +1,79 @@
+import { Callout } from 'nextra/components'
+
+# Coding Standards
+
+<Callout type="warning">Docs for coding standards are under construction.</Callout>
+
+Most of the coding standards are handled by Prettier and ESLint. However, there are some rules that are not covered by these tools. This document will cover those rules.
+
+## General coding
+
+1. **Space Conventions**:
+
+   - Each nested block has to be spaced and indented appropriately.
+   - A space is required after adding a comma separating two function parameters.
+
+   Example: `method1(arg1, arg2)`, `app.use((req, res, err) =>..`
+
+2. **Naming Conventions**:
+
+   - **Functions** must be in **camelCase**.
+   - **Variables**:
+
+     - **Local & Parameter** variables must be in **camelCase**.
+     - **Global** variables must be in **PascalCase**.
+     - **Constant** variables must be in **UPPERCASE**.
+
+   - **Files**:
+
+     - **Schema** files must be in **PascalCase**.
+     - **Controller** and `.hbs` files must be in **camelCase**.
+     - **File paths** in `import` must be **case-sensitive**.
+     - Front end files must be the same (e.g., `index.hbs`, `index.css`, `index.js`).
+
+   - Names should be detailed enough that one immediately recognizes what the variable/function is used for. Use nouns & verbs of the business domain as identifiers for methods & variables.
+
+3. **Error Messages**:
+
+   Error messages must be clear and concise.
+
+4. **Code Style**:
+
+   Don’t write in ALL CAPS (and avoid exclamation marks). Always document your code.
+
+## TSX
+
+1. When naming id and classes with more than one word, use **kebab-case** (hyphen).
+
+   Example: `#about-me`, `.container-head`
+
+2. Avoid shortening words as much as possible (e.g., 'details' to 'det') or using one-letter names (e.g., `#i`, or `.c`).
+
+## CSS
+
+1. **Grouping and Comments**:
+
+   Add a comment to group structures/blocks.
+
+   Example:
+
+   ```css
+   /* classes */
+   .container {
+       margin: 0;
+   }
+   ...
+   ```
+
+2. **Multiple Selectors**:
+
+   If multiple selectors are used (`,`), enter on a newline for each selector.
+
+   Example:
+
+   ```css
+   .username,
+   .profile-pic {
+     margin: 0;
+   }
+   ```
