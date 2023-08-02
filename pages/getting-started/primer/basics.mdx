@@ -312,14 +312,7 @@ console.log(c) // Output: 3
   value in the array, the second variable will be assigned the second value, and so on.
 </Callout>
 
-An example of using array destructuring is when you want to swap the values of two variables without using a temporary variable.
-
-```javascript
-let a = 1
-let b = ((2)[(a, b)] = [b, a])
-```
-
-We can also see this case with the `useState{:js}` hook in React. The `useState{:js}` hook returns an array with two items:
+An example of this case is `useState{:js}` hook in React. The `useState{:js}` hook returns an array with two items:
 
 1. the `state value`
 2. a `function` to update the state value.
@@ -374,7 +367,7 @@ console.log(combined) // Output: [1, 2, 3, 4, 5, 6]
 
 A real world example of using the spread operator is when you want to add a new item to an array without mutating the original array.
 
-```javascript
+```javascript {2}
 const arr = [1, 2, 3]
 const newArr = [...arr, 4]
 console.log(newArr) // Output: [1, 2, 3, 4]
@@ -382,7 +375,7 @@ console.log(newArr) // Output: [1, 2, 3, 4]
 
 It's also commonly used in objects, just like in React to merge the props of a component with the props passed in by the parent component.
 
-```javascript /.../ {8}
+```javascript {7}
 const person = {
   name: 'John',
   age: 30,
@@ -399,7 +392,8 @@ console.log(newPerson) // Output: { name: 'Jane', age: 30, address: 'New York' }
 
 <Callout>
   Take note that the order of the spread operator matters. If you spread an object before another
-  object, the properties of the first object will be overwritten by the second object.
+  object, the properties of the first object will be overwritten by the second object. Just like the
+  example above, `John` will be overwritten by `Jane`.
 </Callout>
 
 Spread operator can also perform a shallow copy of the array or object. If you want to
@@ -422,7 +416,7 @@ console.log(message) // Output: 'Hello, my name is John and I'm 30 years old.'
 
 Nullish coalescing is a way to check if a value is `null` or `undefined` and return a default value if it is. It's commonly used in React to set default props.
 
-```javascript /??/ {3}
+```javascript /??/ {5}
 const name = null
 const defaultName = 'John'
 
@@ -437,7 +431,7 @@ console.log(person.firstName) // Output: 'John'
 
 The logical OR operator `||` is a way to check if a value is falsy and return a default value if it is. It's commonly used in React to set default props.
 
-```javascript /||/ {3}
+```javascript /||/ {5}
 const name = ''
 const defaultName = 'John'
 
@@ -540,16 +534,18 @@ const Person = ({ name, age, address }: Props) => {
 }
 ```
 
+This ensures that the props passed to the `Person` component have the correct types. Unlike in JavaScript, where you can pass any value to a function, TypeScript will throw an error if you pass a value that doesn't match the types defined in the function.
+
 #### When to Use Types vs Interfaces
 
 In analogy with Java, types are like primitive types and interfaces are like classes. For example, in Java, you would define a string variable like this:
 
-```java
+```java filename="Java"
 String name = "John";
 name = 1; // Error: incompatible types: int cannot be converted to String
 ```
 
-```typescript
+```typescript filename="TypeScript"
 const name: string = 'John'
 name = 1 // Error: Type '1' is not assignable to type 'string'
 ```
