@@ -1,15 +1,25 @@
 import membersData from './members.json'
 import styles from './style.module.css'
 
-export default function Members({ current }: { current: boolean}) {
-
+export default function Members({ current }: { current: boolean }) {
   const members = membersData.members
-  .filter((member) => member.isCurrentMember === current)
-  .sort((a, b) => a.name.localeCompare(b.name))
-  .map((member) => [member.isTeamLead, member.name, [(member.roles["UI/UX"] ? "🎨" : ""), (member.roles["Front-end"] ? "🚀" : ""), (member.roles["Back-end"] ? "⚙️" : "")].join(" "), member.programmingLanguages.join(", "), member.frameworksAndLibraries.join(", "), member.tools.join(", ")]);
+    .filter((member) => member.isCurrentMember === current)
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((member) => [
+      member.isTeamLead,
+      member.name,
+      [
+        member.roles['UI/UX'] ? '🎨' : '',
+        member.roles['Front-end'] ? '🚀' : '',
+        member.roles['Back-end'] ? '⚙️' : '',
+      ].join(' '),
+      member.programmingLanguages.join(', '),
+      member.frameworksAndLibraries.join(', '),
+      member.tools.join(', '),
+    ])
 
   return (
-    <div className='nx--mx-6 nx-mb-4 nx-mt-6 nx-overflow-x-auto nx-overscroll-x-contain'>
+    <div className="nx--mx-6 nx-mb-4 nx-mt-6 nx-overflow-x-auto nx-overscroll-x-contain">
       <table className="nx-w-full nx-border-collapse nx-text-sm">
         <thead>
           <tr className="nx-border-b nx-py-4 nx-text-left dark:nx-border-neutral-700">
@@ -24,29 +34,36 @@ export default function Members({ current }: { current: boolean}) {
           {members.map(([isTeamLead, name, roles, languages, frameworks, tools]) => (
             <tr
               key={name as string}
-              className={"nx-border-b nx-border-gray-100 dark:nx-border-neutral-700/50 " + styles.tr}
+              className={
+                'nx-border-b nx-border-gray-100 dark:nx-border-neutral-700/50 ' + styles.tr
+              }
             >
-              {isTeamLead && (
-              <td className={"nx-whitespace-pre nx-py-2 nx-text-xs nx-font-semibold nx-leading-6 " + styles.tdAmber }>
-                {name}
+              <td className="nx-whitespace-pre nx-py-2 nx-text-xs nx-leading-6">
+                {isTeamLead ? <TL name={name as string} /> : <Member name={name as string} />}
               </td>
-              )}
-              {!isTeamLead && (
-              <td className={"nx-whitespace-pre nx-py-2 nx-text-xs nx-leading-6 " + styles.tdViolet }>
-                {name}
-              </td>
-              )}
-              <td className={"nx-whitespace-pre nx-py-2 nx-pl-6 nx-text-xs nx-font-semibold nx-leading-6 " + styles.tdSlate}>
+              <td
+                className={
+                  'nx-whitespace-pre nx-py-2 nx-pl-6 nx-text-xs nx-font-semibold nx-leading-6 ' +
+                  styles.tdSlate
+                }
+              >
                 {roles}
               </td>
-              <td className={"nx-py-2 nx-pl-6 nx-font-mono"}>{languages}</td>
-              <td className={"nx-py-2 nx-pl-6"}>{frameworks}</td>
-              <td className={"nx-py-2 nx-pl-6"}>{tools}</td>
+              <td className={'nx-py-2 nx-pl-6 nx-font-mono'}>{languages}</td>
+              <td className={'nx-py-2 nx-pl-6'}>{frameworks}</td>
+              <td className={'nx-py-2 nx-pl-6'}>{tools}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   )
+}
 
+export const TL = ({ name }: { name: string }) => {
+  return <span className={'nx-font-semibold ' + styles.teamLeader}>{name}</span>
+}
+
+export const Member = ({ name }: { name: string }) => {
+  return <span className={styles.member}>{name}</span>
 }

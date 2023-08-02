@@ -13,17 +13,17 @@
 }
 
 .tr {
-  border-color: rgba(64,64,64,.5);
+  border-color: rgba(64, 64, 64, 0.5);
 }
 
-.tdViolet {
-  color: rgb(124 58 237); 
+.member {
+  color: var(--shiki-color-ansi-magenta);
 }
 
-.tdAmber {
-  color: rgb(217 119 6);
+.teamLeader {
+  color: var(--shiki-color-ansi-bright-blue);
 }
 
-.tdSlate{
+.tdSlate {
   color: rgb(100 116 139);
 }
