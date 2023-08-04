@@ -77,3 +77,78 @@ Most of the coding standards are handled by Prettier and ESLint. However, there 
      margin: 0;
    }
    ```
+
+---
+
+### Next.js and React:
+
+1. **File Structure and Naming**:
+
+   - Organize components, pages, and utilities into separate folders.
+   - Use PascalCase for component and page filenames (e.g., `Header.js`, `HomePage.js`).
+   - Group related components and files together.
+
+2. **Component Naming**:
+
+   - Use descriptive and meaningful names for components.
+   - Use PascalCase for component names (e.g., `Header`, `UserProfile`).
+
+3. **Component Structure**:
+
+   - Follow a consistent component structure with props, state (if needed), render logic, and lifecycle methods (if used).
+
+4. **JSX and Formatting**:
+
+   - Use JSX for rendering components.
+   - Format JSX content with proper indentation for better readability.
+   - Avoid unnecessary nesting of components.
+
+5. **Props**:
+
+   - Use destructuring for accessing props in functional components.
+   - Clearly define and document prop types using PropTypes or TypeScript.
+
+6. **State Management**:
+   - Use React's state management or external libraries like Redux based on project complexity.
+   - Use functional components and hooks (useState, useEffect, etc.) for managing state.
+
+### Tailwind CSS:
+
+1. **Class Naming**:
+
+   - Utilize Tailwind CSS's utility classes for styling components.
+   - Aim to use utility classes for common styling tasks.
+   - Define custom utility classes when necessary.
+
+2. **Component Styling**:
+
+   - Keep styling classes close to their respective components.
+   - Avoid inline styles unless required.
+
+3. **Responsive Design**:
+
+   - Use Tailwind's responsive classes to create mobile-friendly layouts.
+
+4. **Custom Styling**:
+   - Define custom CSS classes in the project's stylesheet when utility classes don't suffice.
+
+### Prisma:
+
+1. **Database Schema**:
+
+   - Use PascalCase for model names (e.g., `User`, `Post`).
+   - Define relationships between models using appropriate fields (e.g., `User.posts`).
+
+2. **Queries and Mutations**:
+
+   - Use Prisma's query and mutation methods to interact with the database.
+   - Utilize filtering, pagination, and sorting options to efficiently retrieve data.
+
+3. **Transactions and Error Handling**:
+
+   - Use transactions to ensure data consistency in complex operations.
+   - Implement error handling for database operations.
+
+4. **Migrations**:
+   - Use migrations to manage changes to the database schema.
+   - Document migration steps for team members.
