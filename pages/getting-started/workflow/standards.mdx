@@ -4,42 +4,192 @@ import { Callout } from 'nextra/components'
 
 <Callout type="warning">Docs for coding standards are under construction.</Callout>
 
-Most of the coding standards are handled by Prettier and ESLint. However, there are some rules that are not covered by these tools. This document will cover those rules.
+The coding standards below are mostly referenced from [Airbnb's JavaScript Style Guide](https://airbnb.io/javascript/react/#naming) and [Google's TypeScript Style Guide](https://google.github.io/styleguide/tsguide.html#identifiers-constants).
+
+While some of the coding standards are handled by Prettier and ESLint, there are some rules that are not covered by these tools. This article will cover those rules.
+
+## General Principles
+
+Keep in mind the following principles when writing code:
+
+- **Consistency**: Maintain consistent naming conventions, formatting, and coding styles throughout the codebase.
+
+- **Readability**: Write code that is easy to read and understand. Use meaningful variable and function names.
+
+- **Simplicity**: Write simple code that is easy to understand and maintain. Avoid unnecessary complexity.
+
+- **Modularity**: Break down your code into small, reusable components and modules. Aim for single-responsibility components.
+
+## General Coding
+
+### Naming Conventions
+
+#### Syntax
+
+The following table summarizes the naming conventions of the sections below. Read the sections for more details.
+
+import { OptionTable } from 'components/table'
+
+<OptionTable
+  options={[
+    ['PascalCase', 'class / interface / type / enum / decorator / type parameters'],
+    ['camelCase', 'variable / parameter / function / method / property / module alias'],
+    ['ALL_CAPS_SNAKE_CASE', 'global constant values, including enum values.'],
+    ['kebab-case', 'id / class / file / folder / file path'],
+  ]}
+  customHead={{
+    option: 'Style',
+    description: 'Category',
+  }}
+  hasType={false}
+/>
+
+<Callout>
+  While this table only shows the format for naming, it does not show how to name the actual
+  identifier. For this, we will use [S-I-D](/getting-started/primer/naming#s-i-d) technique.
+</Callout>
+
+#### Files and Folders
+
+- **File paths** in `import` must be **case-sensitive**. This is to avoid issues when deploying to Linux servers (which Vercel uses).
+
+## React
+
+### Component Naming
+
+Use PascalCase for component names. For example, `Header`, `UserProfile`.
+
+```jsx
+// Good
+function UserProfile() {
+  // ...
+}
+
+// Avoid
+function user_profile() {
+  // ...
+}
+```
+
+### Functional Components
+
+Use functional components as the default.
+
+```jsx
+// Good
+function App() {
+  // ...
+}
+
+// Avoid
+class App extends React.Component {
+  // ...
+}
+```
+
+### Props Naming
+
+Use camelCase for prop names. Make prop names descriptive.
+
+```jsx
+// Good
+function Avatar({ imageUrl }) {
+  // ...
+}
+
+// Avoid
+function Avatar({ img_url }) {
+  // ...
+}
+```
+
+### Component Structure
+
+Organize components with a clear hierarchy. Use JSX fragments (`<>...</>`) when returning multiple elements.
+
+```jsx
+// Good
+function UserProfile() {
+  return (
+    <>
+      <Header />
+      <UserInfo />
+      <UserPosts />
+    </>
+  )
+}
+// Avoid
+function UserProfile() {
+  return (
+    // only use div if necessary such as styling
+    <div>
+      <Header />
+      <UserInfo />
+      <UserPosts />
+    </div>
+  )
+}
+```
+
+## TypeScript
+
+### Type Annotations
+
+Use TypeScript's type annotations for variables, function arguments, and return types. This enhances code clarity and catch errors early.
+
+### Interfaces and Types
+
+Use interfaces for defining object structures and types for simple cases. Use union types, intersection types, etc., as needed.
+
+### Type Inference
+
+Leverage TypeScript's type inference but add explicit types when necessary.
+
+## Tailwind CSS
+
+### Class Names
+
+Use utility classes provided by Tailwind CSS for styling. Create custom classes only when necessary.
+
+### Responsive Design
+
+Utilize Tailwind's responsive classes for building responsive layouts.
+
+### Separation of Concerns
+
+Keep layout and styles separate from logic in components. Avoid inline styles when possible.
+
+## Prisma
+
+### Naming Conventions
+
+Follow naming conventions for models, fields, and relationships as per Prisma's guidelines.
+
+### Data Modeling
+
+Design clear and consistent data models. Use appropriate data types and relationships.
+
+### Migration Scripts
+
+Use Prisma's migration scripts to manage database schema changes. Document migrations for better understanding.
+
+## Miscellaneous
+
+### Imports
+
+Use absolute imports for better organization. Structure the folder hierarchy logically.
+
+### Comments
+
+Use comments to explain complex logic, non-obvious code, or any workarounds.
+
+### Formatting
+
+Use code formatting tools like Prettier to maintain consistent formatting.
 
 ## General coding
 
-1. **Space Conventions**:
-
-   - Each nested block has to be spaced and indented appropriately.
-   - A space is required after adding a comma separating two function parameters.
-
-   Example: `method1(arg1, arg2)`, `app.use((req, res, err) =>..`
-
-2. **Naming Conventions**:
-
-   - **Functions** must be in **camelCase**.
-   - **Variables**:
-
-     - **Local & Parameter** variables must be in **camelCase**.
-     - **Global** variables must be in **PascalCase**.
-     - **Constant** variables must be in **UPPERCASE**.
-
-   - **Files**:
-
-     - **Schema** files must be in **PascalCase**.
-     - **Controller** and `.hbs` files must be in **camelCase**.
-     - **File paths** in `import` must be **case-sensitive**.
-     - Front end files must be the same (e.g., `index.hbs`, `index.css`, `index.js`).
-
-   - Names should be detailed enough that one immediately recognizes what the variable/function is used for. Use nouns & verbs of the business domain as identifiers for methods & variables.
-
-3. **Error Messages**:
-
-   Error messages must be clear and concise.
-
-4. **Code Style**:
-
-   Don’t write in ALL CAPS (and avoid exclamation marks). Always document your code.
+- Names should be detailed enough that one immediately recognizes what the variable/function is used for. Use nouns & verbs of the business domain as identifiers for methods & variables.
 
 ## TSX
 
@@ -53,17 +203,16 @@ Most of the coding standards are handled by Prettier and ESLint. However, there 
 
 1. **Grouping and Comments**:
 
-   Add a comment to group structures/blocks.
+Add a comment to group structures/blocks.
 
-   Example:
+Example:
 
-   ```css
-   /* classes */
-   .container {
-       margin: 0;
-   }
-   ...
-   ```
+```css
+/* classes */
+.container {
+  margin: 0;
+}
+```
 
 2. **Multiple Selectors**:
 
@@ -80,7 +229,7 @@ Most of the coding standards are handled by Prettier and ESLint. However, there 
 
 ---
 
-### Next.js and React:
+## Next.js and React
 
 1. **File Structure and Naming**:
 
@@ -112,7 +261,7 @@ Most of the coding standards are handled by Prettier and ESLint. However, there 
    - Use React's state management or external libraries like Redux based on project complexity.
    - Use functional components and hooks (useState, useEffect, etc.) for managing state.
 
-### Tailwind CSS:
+## Tailwind CSS
 
 1. **Class Naming**:
 
@@ -132,23 +281,6 @@ Most of the coding standards are handled by Prettier and ESLint. However, there 
 4. **Custom Styling**:
    - Define custom CSS classes in the project's stylesheet when utility classes don't suffice.
 
-### Prisma:
+```
 
-1. **Database Schema**:
-
-   - Use PascalCase for model names (e.g., `User`, `Post`).
-   - Define relationships between models using appropriate fields (e.g., `User.posts`).
-
-2. **Queries and Mutations**:
-
-   - Use Prisma's query and mutation methods to interact with the database.
-   - Utilize filtering, pagination, and sorting options to efficiently retrieve data.
-
-3. **Transactions and Error Handling**:
-
-   - Use transactions to ensure data consistency in complex operations.
-   - Implement error handling for database operations.
-
-4. **Migrations**:
-   - Use migrations to manage changes to the database schema.
-   - Document migration steps for team members.
+```
