@@ -1,3 +1,4 @@
+import { IFrame } from 'components/iframe'
 import { Callout } from 'nextra/components'
 
 # JavaScript / TypeScript Basics
@@ -483,6 +484,14 @@ console.log(zipCode) // Output: undefined
   <ins>it can lead to runtime errors if the value is actually null or undefined</ins>.
 </Callout>
 
+### Utility Types
+
+Utility types are a set of built-in generic types that can be used to transform other types. They're commonly used in React to transform the props of a component.
+
+Watch this 3-minute video to learn more about utility types:
+
+<IFrame src="https://www.youtube.com/embed/EU0TB_8KHpY" />
+
 ### Types vs Interfaces
 
 In TypeScript, both types and interfaces are used to define the shape of an object or a function. They can be used interchangeably in many cases, but there are some differences between them.
@@ -558,9 +567,7 @@ name = 1 // Error: Type '1' is not assignable to type 'string'
 
 In general, interfaces are used to describe the shape of an object and types are used to describe the types of variables and functions. However, in many cases, they can be used interchangeably.
 
-Here are some guidelines to help you decide when to use a type vs an interface:
+For this project, we will use **types** for everything <ins>unless</ins> we need a feature that is only available in **interfaces**.
+Watch the video below for more info.
 
-- Use interfaces when you want to define the shape of an object.
-- Use types when you want to define the types of variables, parameters, and return values in a function.
-- Use interfaces when you want to extend an existing interface.
-- Use types when you want to create an alias for a union type or a tuple type.
+<IFrame src="https://www.youtube.com/embed/zM9UPcIyyhQ?start=200" />
