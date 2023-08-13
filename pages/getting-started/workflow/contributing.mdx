@@ -1,4 +1,4 @@
-import { Callout } from 'nextra/components'
+import { Callout, Steps } from 'nextra/components'
 
 # Contributing Guidelines
 
@@ -6,3 +6,110 @@ import { Callout } from 'nextra/components'
   Make sure you have have finished [joining the team](/getting-started/join) and [setting up the
   project](/getting-started/setup#project-setup).
 </Callout>
+
+## GitHub
+
+1. **Always** include backlog item code at the start.
+   **But**, for **commit messages**, you don't need to include the code if:
+
+- you're working in a subtask branch or
+- you just refactored/cleaned some code.
+
+2. For branches, try to limit up to 3 words as much as possible. Spaces are replaced with hyphen.
+   Example: PMS-6-add-item
+3. For commits, type the changes you've made in **detail** as much as possible.
+   Example: PMS-10 added a prototype for table data
+4. If you have installed a new npm package, always inform the team and include it in the commit.
+   It is everyone's responsibility to run `npm install` in their local repository.
+
+## Important note
+
+If you're done with the branch, let's say last commit na or tapos ka na and ready na for PR (Pull request), **always** `git pull origin development` before PR.
+
+**How?**
+(Assuming na hindi nyo pa ginagalaw code after ng last commit)
+
+- For VS Code users, open your terminal (Ctrl+\`) and type `git pull origin development`
+- For Github Desktop users, open command prompt (sa repo folder) and type `git pull origin development`
+
+**Why?**
+We want to pull the changes from everyone before pushing our code to the remote repository. Doing so will ensure that our local copy is in sync with new changes made by the team in the remote repository. If there are conflicts when pulling, we can resolve conflicts. **Developers MUST TEST** if everything is working by checking the web app (kung may nasira ba) or the code (kung may na overwrite/nawala).
+
+## Trunk Based Development
+
+<Steps>
+**How do I start working on a user story/task/subtask?**
+
+### Notify the team.
+
+Use #general or in Messenger gc if you're going to work on a task.
+Change the state in JIRA to `In Progress`.
+
+### Create a new branch from development.
+
+_(For VS Code)_
+
+1. Make sure you're on the `development` branch by checking lower-left of status bar.
+2. Go to Source Control (`Ctrl+Shift+G then G`)
+3. Open actions menu (the 3 dots) then Branch > Create Branch...
+4. Enter the code and title with spaces as hyphen (e.g `PMS-68-Sidebar-menu`).
+5. Click "Publish Branch."
+   _(For Github Desktop)_
+6. Make sure you're on the `development` branch by checking "Current branch."
+7. Go to Branch > New Branch or `Ctrl+Shift+N`
+8. Enter the code and title with spaces as hyphen (e.g `PMS-68-Sidebar-menu`).
+9. Select `development` branch then click "Create branch."
+10. Click "Publish branch."
+
+### Code 🧑‍💻
+
+### Commit and push.
+
+1. Stage your files.
+
+- For VSCode, press `+`
+- For Github Desktop, open cmd, do `git status`, then `git add <file path>`
+
+2. Run `npx lint-staged` to format code.
+3. Commit (apply coding standard) then Push/Sync.
+
+**Now that I am done with the task, what do I do now?**
+
+### Pull from development.
+
+### Pull Request (PR)
+
+1. Go to https://github.com/erik-lance/TitafindsXG5/pulls
+2. Click "New pull request."
+3. Click `base: main` then select `development` branch.
+4. Click `compare: main` then select the branch to PR (e.g `compare: PMS-68-Sidebar-menu`).
+5. Click "Create pull request".
+6. For the title, edit the code like `Pms 68 sidebar menu` to `PMS-68 sidebar menu`.
+7. For the description, follow this example https://github.com/erik-lance/TitafindsXG5/pull/9
+8. For the reviewers, add @pseudo1337 and @Quality Assurance.
+9. Click "Create pull request".
+
+### Notify the team for Code Review.
+
+Note: If the branch is a user story, change the state to `Ready for QA` in JIRA.
+@Quality Assurance **must** test the feature on the web app and try breaking the system.
+@Developer can review the code (new changes, mistakes, etc.)
+
+**The team has finished reviewing and all is working. What's next?**
+
+### Merge and then delete the branch. Simply click the buttons.
+
+Note: If the branch is a user story, change the state to `Ready for Review` in JIRA.
+
+### Update and clean your local repo.
+
+Switch to `development` branch then click the 🔄️ button; either VS Code (lower-left) or Github Desktop.
+Since the deletion of the branch only happens in remote/cloud, we need to clean our local repo:
+
+1. Open command prompt in our repo folder (or use terminal in VS Code)
+2. Type `git fetch -p`.
+3. Type `npm run clean-local`.
+
+### Take a quick break. Don't forget to rest!
+
+</Steps>
