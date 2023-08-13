@@ -60,7 +60,7 @@ This section covers the naming conventions for files and folders.
   options={[
     ['PascalCase', 'components'],
     ['camelCase', 'hooks'],
-    ['kebab-case', 'assets', 'Next.js pages and API routes'],
+    ['kebab-case', 'assets, Next.js pages and API routes'],
     ['ALL_CAPS_SNAKE_CASE', 'miscellaneous'],
   ]}
   customHead={{
@@ -75,8 +75,6 @@ This section covers the naming conventions for files and folders.
 - **File paths** in `import` must be **case-sensitive**.
 
 ```js
-// For example, the file name is `arrowRight.png`
-
 // Good
 import ArrowRight from 'assets/images/arrowRight.png'
 
@@ -85,20 +83,60 @@ import ArrowRight from 'assets/images/arrowright.png'
 ```
 
 <Callout type="info">
-  Fortunately for this example, the casing for assets files are in kebab-case. However, it's still
-  good to be aware of this. This is to avoid issues when deploying to Linux servers (which Vercel
-  uses).
+  Fortunately for this example, the casing for <ins>assets files</ins> are in kebab-case. However,
+  it's still good to be aware of this. This is to avoid issues when deploying to Linux servers
+  (which Vercel uses).
 </Callout>
 
 ### Comments
 
 Use comments to explain complex logic, non-obvious code, or any workarounds.
 
+```ts
+// Good
+// This is a workaround for a bug in the library.
+// See <insert link to issue> for more details.
+const result = await someLibrary.doSomething()
+
+// Avoid
+// This is a function that returns the user's name.
+function getName() {
+  // ...
+}
+```
+
+### Error Handling
+
+Use `try-catch` blocks to handle errors. This makes it easier to debug errors and handle them gracefully.
+
+```ts
+// Good
+try {
+  // ...
+} catch (error) {
+  // handle error
+}
+
+// Avoid
+// This will cause the app to crash if an error occurs.
+const result = someLibrary.doSomething()
+```
+
+Be clear and concise when throwing errors. Avoid exposing internal details of the app to the user. For example, instead of throwing a `NullReferenceException`, throw a generic error message.
+
+```ts
+Unclear Error Message:
+"Error code: 0x00023. An exception of type 'System.NullReferenceException' occurred at line 57."
+
+Clear and Concise Error Message:
+"Oops! Something went wrong while processing your request. Please try again later or contact support if the issue persists."
+```
+
 ## React
 
 ### Component Naming
 
-Use PascalCase for component names. For example, `Header`, `UserProfile`.
+Use PascalCase for component names. For example, `Header`, `UserProfile`. Use descriptive and meaningful names for components.
 
 ```jsx
 // Good
@@ -172,39 +210,220 @@ function UserProfile() {
 }
 ```
 
+Follow a consistent component structure with props, state (if needed), render logic, and lifecycle methods (if used).
+
 ## TypeScript
 
 ### Type Annotations
 
 Use TypeScript's type annotations for variables, function arguments, and return types. This enhances code clarity and catch errors early.
 
+```ts
+// Good
+function getUser(id: number): User {
+  // ...
+}
+
+// Avoid
+function getUser(id) {
+  // ...
+}
+```
+
 ### Interfaces and Types
 
-Use interfaces for defining object structures and types for simple cases. Use union types, intersection types, etc., as needed.
+Use types for everything unless you need to use features that are only available in interfaces.
 
 ### Type Inference
 
 Leverage TypeScript's type inference but add explicit types when necessary.
 
+```ts
+// Good
+const name = 'John Doe'
+const age = 20
+// add explicit type when necessary
+const user: User = {
+  name,
+  age,
+}
+
+// Avoid
+const name: string = 'John Doe'
+const age: number = 20
+const user = {
+  name,
+  age,
+}
+```
+
 ## Tailwind CSS
 
 ### Class Names
 
-Use utility classes provided by Tailwind CSS for styling. Create custom classes only when necessary.
+Use utility-first approach for styling based on [Tailwind CSS documentation](https://tailwindcss.com/docs/utility-first). Avoid creating custom classes when possible.
+
+```jsx
+// Good
+<div className="flex items-center justify-center w-full h-full bg-gray-100">
+  <div className="w-1/2">
+    <h1 className="text-2xl font-bold text-center">Hello World</h1>
+  </div>
+</div>
+
+// Avoid
+<div className="container">
+  <div className="row">
+    <div className="col">
+      <h1 className="title">Hello World</h1>
+    </div>
+  </div>
+</div>
+```
+
+<Callout type="warning">
+
+We really **do not recommend** creating custom classes. This is because it is difficult to
+maintain and it is not reusable.
+
+If the `className` becomes too long or bulky, we recommend using [Tailwind Fold](/getting-started/setup#vs-code-extensions) extension to fold the classes and make it easier to read.
+
+If you worry about the class order, the `prettier-plugin-tailwindcss` package already sorts the classes for you once you save the file.
+
+However, if it is really <ins>necessary</ins> that you need to create custom classes, make sure that it is reusable and it follows the naming conventions below.
+
+</Callout>
+
+1. When naming id and classes with more than one word, use **kebab-case** (hyphen) like `#about-me`, `.container-head`.
+
+2. Avoid shortening words as much as possible (e.g., 'details' to 'det') or using one-letter names (e.g., `#i`, or `.c`).
+
+3. In css files, add a comment to group structures/blocks.
+
+```css {1}
+/* Chat */
+.container-chat {
+  margin: 0;
+}
+.container-chat .chat-header {
+  margin: 0;
+}
+```
+
+```css filename="globals.css" {4}
+:root {
+  ...
+
+  /* Color version 1.x */
+  --color-primary: #000;
+  --color-secondary: #fff;
+}
+```
+
+4. If multiple selectors are used (`,`), enter on a newline for each selector.
+
+```css
+.username,
+.profile-pic {
+  margin: 0;
+}
+```
 
 ### Responsive Design
 
-Utilize Tailwind's responsive classes for building responsive layouts.
+Utilize [Tailwind's responsive classes](https://tailwindcss.com/docs/responsive-design) for building responsive layouts. Mobile-first approach is recommended.
+
+```jsx /lg:/
+<p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+  Get started by editing&nbsp;
+  <code className="font-bold">src/app/page.tsx</code>
+</p>
+```
+
+<Callout>
+
+Notice that the `lg` breakpoint is used to override the styles for larger screens.
+
+Optional: Since the current Figma designs are in large screens, you can choose to style pc/large screens first, then add `lg` later on if you're now ready to style for mobile.
+
+</Callout>
 
 ### Separation of Concerns
 
 Keep layout and styles separate from logic in components. Avoid inline styles when possible.
 
+```jsx
+// Good
+function UserProfile() {
+  return (
+    <div className="flex items-center justify-center w-full h-full bg-gray-100">
+      <div className="w-1/2">
+        <h1 className="text-2xl font-bold text-center">Hello World</h1>
+      </div>
+    </div>
+  )
+}
+
+// Avoid
+function UserProfile() {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#f7fafc',
+      }}
+    >
+      <div style={{ width: '50%' }}>
+        <h1 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center' }}>Hello World</h1>
+      </div>
+    </div>
+  )
+}
+```
+
 ## Prisma
 
 ### Naming Conventions
 
-Follow naming conventions for models, fields, and relationships as per Prisma's guidelines.
+Follow naming conventions for models, fields, and relationships as per [Prisma's guidelines](https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#naming-conventions).
+
+Keep in mind the following as well (for MySQL):
+
+1. Use `snake_case`, all lowercase letters.
+2. Table names are in plural form (e.g., `users`, `users_addresses`). Field names are in singular form (e.g., `user`, `address`).
+3. Short names only - no more than three words.
+
+In order to follow to retain the rules above, utilize the [Prisma's `@map` attribute](https://www.prisma.io/docs/concepts/components/prisma-schema/names-in-underlying-database) to map the model and field names to the database table and column names.
+
+```prisma {3, 8, 9, 11} filename="schema.prisma"
+// Good
+model User {
+  userId      Int      @id @default(autoincrement()) @map("user_id")
+  name        String
+  email       String   @unique
+  posts       Post[]
+  profile     Profile? @relation(fields: [profileId], references: [profileId])
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+// Avoid
+model users {
+  user_id     Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  posts       Post[]
+  profile     Profile?
+  createdPat  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+```
 
 ### Data Modeling
 
@@ -213,93 +432,3 @@ Design clear and consistent data models. Use appropriate data types and relation
 ### Migration Scripts
 
 Use Prisma's migration scripts to manage database schema changes. Document migrations for better understanding.
-
-## TSX
-
-1. When naming id and classes with more than one word, use **kebab-case** (hyphen).
-
-   Example: `#about-me`, `.container-head`
-
-2. Avoid shortening words as much as possible (e.g., 'details' to 'det') or using one-letter names (e.g., `#i`, or `.c`).
-
-## CSS
-
-1. **Grouping and Comments**:
-
-Add a comment to group structures/blocks.
-
-Example:
-
-```css
-/* classes */
-.container {
-  margin: 0;
-}
-```
-
-2. **Multiple Selectors**:
-
-   If multiple selectors are used (`,`), enter on a newline for each selector.
-
-   Example:
-
-   ```css
-   .username,
-   .profile-pic {
-     margin: 0;
-   }
-   ```
-
----
-
-## Next.js and React
-
-1. **File Structure and Naming**:
-
-   - Organize components, pages, and utilities into separate folders.
-   - Use PascalCase for component and page filenames (e.g., `Header.js`, `HomePage.js`).
-   - Group related components and files together.
-
-2. **Component Naming**:
-
-   - Use descriptive and meaningful names for components.
-   - Use PascalCase for component names (e.g., `Header`, `UserProfile`).
-
-3. **Component Structure**:
-
-   - Follow a consistent component structure with props, state (if needed), render logic, and lifecycle methods (if used).
-
-4. **JSX and Formatting**:
-
-   - Use JSX for rendering components.
-   - Format JSX content with proper indentation for better readability.
-   - Avoid unnecessary nesting of components.
-
-5. **Props**:
-
-   - Use destructuring for accessing props in functional components.
-   - Clearly define and document prop types using PropTypes or TypeScript.
-
-6. **State Management**:
-   - Use React's state management or external libraries like Redux based on project complexity.
-   - Use functional components and hooks (useState, useEffect, etc.) for managing state.
-
-## Tailwind CSS
-
-1. **Class Naming**:
-
-   - Utilize Tailwind CSS's utility classes for styling components.
-   - Aim to use utility classes for common styling tasks.
-   - Define custom utility classes when necessary.
-
-2. **Component Styling**:
-
-   - Keep styling classes close to their respective components.
-   - Avoid inline styles unless required.
-
-3. **Responsive Design**:
-
-   - Use Tailwind's responsive classes to create mobile-friendly layouts.
-
-4. **Custom Styling**:
-   - Define custom CSS classes in the project's stylesheet when utility classes don't suffice.
