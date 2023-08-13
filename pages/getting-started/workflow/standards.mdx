@@ -24,7 +24,7 @@ Keep in mind the following principles when writing code:
 
 ### Naming Conventions
 
-#### Syntax
+#### Identifier Syntax
 
 The following table summarizes the naming conventions of the sections below. Read the sections for more details.
 
@@ -46,12 +46,53 @@ import { OptionTable } from 'components/table'
 
 <Callout>
   While this table only shows the format for naming, it does not show how to name the actual
-  identifier. For this, we will use [S-I-D](/getting-started/primer/naming#s-i-d) technique.
+  identifier. For this, take note of the following:
+- Use [S-I-D](/getting-started/primer/naming#s-i-d) technique. Names should be detailed enough that one immediately recognizes what the variable/function is used for.
+- Use ubiquitous language when naming variables/functions.
+
 </Callout>
 
 #### Files and Folders
 
-- **File paths** in `import` must be **case-sensitive**. This is to avoid issues when deploying to Linux servers (which Vercel uses).
+This section covers the naming conventions for files and folders.
+
+<OptionTable
+  options={[
+    ['PascalCase', 'components'],
+    ['camelCase', 'hooks'],
+    ['kebab-case', 'assets', 'Next.js pages and API routes'],
+    ['ALL_CAPS_SNAKE_CASE', 'miscellaneous'],
+  ]}
+  customHead={{
+    option: 'Style',
+    description: 'Category',
+  }}
+  hasType={false}
+/>
+
+- Assets must be in `<page>-<shortdescription>.png` format. For example, `home-hero.png`.
+
+- **File paths** in `import` must be **case-sensitive**.
+
+```js
+// For example, the file name is `arrowRight.png`
+
+// Good
+import ArrowRight from 'assets/images/arrowRight.png'
+
+// Avoid
+import ArrowRight from 'assets/images/arrowright.png'
+```
+
+<Callout type="info">
+  Fortunately for this example, the casing for assets files are in kebab-case. However, it's still
+  good to be aware of this. This is to avoid issues when deploying to Linux servers (which Vercel
+  uses).
+</Callout>
+
+### Comments
+
+Use comments to explain complex logic, non-obvious code, or any workarounds.
 
 ## React
 
@@ -173,24 +214,6 @@ Design clear and consistent data models. Use appropriate data types and relation
 
 Use Prisma's migration scripts to manage database schema changes. Document migrations for better understanding.
 
-## Miscellaneous
-
-### Imports
-
-Use absolute imports for better organization. Structure the folder hierarchy logically.
-
-### Comments
-
-Use comments to explain complex logic, non-obvious code, or any workarounds.
-
-### Formatting
-
-Use code formatting tools like Prettier to maintain consistent formatting.
-
-## General coding
-
-- Names should be detailed enough that one immediately recognizes what the variable/function is used for. Use nouns & verbs of the business domain as identifiers for methods & variables.
-
 ## TSX
 
 1. When naming id and classes with more than one word, use **kebab-case** (hyphen).
@@ -280,7 +303,3 @@ Example:
 
 4. **Custom Styling**:
    - Define custom CSS classes in the project's stylesheet when utility classes don't suffice.
-
-```
-
-```
