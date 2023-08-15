@@ -1,4 +1,5 @@
 import { Callout, Steps } from 'nextra/components'
+import { IFrame } from 'components/iframe'
 
 # Contributing Guidelines
 
@@ -7,7 +8,19 @@ import { Callout, Steps } from 'nextra/components'
   project](/getting-started/setup#project-setup).
 </Callout>
 
-## GitHub
+This article shows the steps on how to contribute to the project. It is recommended to read the [project structure](/getting-started/setup#project-structure) first.
+
+## Pre-requisites
+
+This section is a reminder on how to commit, about the dos and don'ts, and other important notes.
+
+### How to commit better
+
+The following video explains how to commit with better messages. It is recommended to watch the video before proceeding.
+
+<IFrame src="https://www.youtube.com/embed/Hlp-9cdImSM?start=45" />
+
+### Dos and Don'ts
 
 1. **Always** include backlog item code at the start.
    **But**, for **commit messages**, you don't need to include the code if:
@@ -15,14 +28,101 @@ import { Callout, Steps } from 'nextra/components'
 - you're working in a subtask branch or
 - you just refactored/cleaned some code.
 
-2. For branches, try to limit up to 3 words as much as possible. Spaces are replaced with hyphen.
-   Example: PMS-6-add-item
-3. For commits, type the changes you've made in **detail** as much as possible.
-   Example: PMS-10 added a prototype for table data
-4. If you have installed a new npm package, always inform the team and include it in the commit.
-   It is everyone's responsibility to run `npm install` in their local repository.
+2. For branches, try to limit up to 3 words as much as possible. Spaces are replaced with hyphen. Example:
 
-## Important note
+```md
+ALT-6-add-item
+```
+
+3. For commits, type the changes you've made in **detail** as much as possible. Example:
+
+```md
+Example: ALT-10 Added a prototype for table data
+```
+
+4. If you have installed a new npm package, always inform the team and include it in the commit as well as in the PR description. Example:
+
+```md
+## What did you do?
+
+- Added `Alert` shadcn component
+- Added `nextjs-toploader` package
+```
+
+It is everyone's responsibility to run `npm install` in their local repository.
+
+5. When switching branches, always `npx prisma generate` to generate the schema. This is to avoid errors when running the app.
+
+## Pull Request (PR)
+
+<Steps>
+### Go to the repository
+
+### Find your branch and click "Compare & pull request"
+
+### Enter title and description
+
+The title must be in this format: `ALT-# Given task title`
+
+```md
+ALT-2 Create a new page for the dashboard
+```
+
+Use the following template for the description:
+
+```md {1} copy
+# [ALT-#](link) insert title here
+
+## What type of PR is this? (select all that apply)
+
+- [x] 📦 Feature
+- 🐛 Bug Fix
+- 👨‍💻 Code Refactor
+- [x] 🗒️ Documentation update
+
+## Description
+
+< enter the task description >
+
+## What did you do?
+
+(for example...)
+
+- Learned how to use NextAuth
+- Added the tech stack and the packages that will be used
+- Updated `README.md`
+
+## What to watch out for? (optional)
+
+- Possible conflict between db schema of Draft 3 and NextAuth (for Google OAuth)
+```
+
+### Add reviewers
+
+Add the TL and the team members who are familiar with the task.
+
+### Click "Create pull request"
+
+### Wait for approval
+
+Let the reviewers review your code. If there are changes to be made, make the changes and commit again. If there are no changes to be made, the reviewers will approve the PR.
+
+### Merge the PR
+
+After the PR is approved, merge the PR. If there are conflicts, resolve the conflicts. If there are no conflicts, merge the PR.
+
+### Pull from development
+
+After the PR is merged, pull from development to get the latest changes.
+
+### Delete the branch
+
+After pulling from development, delete the branch. This is to avoid confusion when creating a new branch.
+
+### Done!
+
+</Steps>
+### Important note
 
 If you're done with the branch, let's say last commit na or tapos ka na and ready na for PR (Pull request), **always** `git pull origin development` before PR.
 
@@ -52,12 +152,12 @@ _(For VS Code)_
 1. Make sure you're on the `development` branch by checking lower-left of status bar.
 2. Go to Source Control (`Ctrl+Shift+G then G`)
 3. Open actions menu (the 3 dots) then Branch > Create Branch...
-4. Enter the code and title with spaces as hyphen (e.g `PMS-68-Sidebar-menu`).
+4. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
 5. Click "Publish Branch."
    _(For Github Desktop)_
 6. Make sure you're on the `development` branch by checking "Current branch."
 7. Go to Branch > New Branch or `Ctrl+Shift+N`
-8. Enter the code and title with spaces as hyphen (e.g `PMS-68-Sidebar-menu`).
+8. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
 9. Select `development` branch then click "Create branch."
 10. Click "Publish branch."
 
@@ -82,9 +182,9 @@ _(For VS Code)_
 1. Go to https://github.com/erik-lance/TitafindsXG5/pulls
 2. Click "New pull request."
 3. Click `base: main` then select `development` branch.
-4. Click `compare: main` then select the branch to PR (e.g `compare: PMS-68-Sidebar-menu`).
+4. Click `compare: main` then select the branch to PR (e.g `compare: ALT-68-Sidebar-menu`).
 5. Click "Create pull request".
-6. For the title, edit the code like `Pms 68 sidebar menu` to `PMS-68 sidebar menu`.
+6. For the title, edit the code like `ALT 68 sidebar menu` to `ALT-68 sidebar menu`.
 7. For the description, follow this example https://github.com/erik-lance/TitafindsXG5/pull/9
 8. For the reviewers, add @pseudo1337 and @Quality Assurance.
 9. Click "Create pull request".
@@ -113,3 +213,4 @@ Since the deletion of the branch only happens in remote/cloud, we need to clean 
 ### Take a quick break. Don't forget to rest!
 
 </Steps>
+```
