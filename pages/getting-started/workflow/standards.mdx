@@ -70,8 +70,10 @@ This section covers the naming conventions for files and folders.
   hasType={false}
 />
 
-- Assets must be in `<page>-<shortdescription>.png` format. For example, `home-hero.png`.
-
+- Assets are placed in the `public` folder and must have a short description of what it is.
+- If assets are specific to a page, place them in the page's folder and must be in `<element[#]>-<shortdescription>.png{:jsx}` format.
+  For example, `public/landing/section1-hero.png{:jsx}` which means it's the hero image for the first `<section>{:jsx}` in the landing page.
+- Miscellaneous file examples are `LICENSE`, `README.md`, etc.
 - **File paths** in `import` must be **case-sensitive**.
 
 ```js

@@ -1,5 +1,6 @@
 import { Callout, Steps } from 'nextra/components'
 import { IFrame } from 'components/iframe'
+import { TL } from 'components/members'
 
 # Contributing Guidelines
 
@@ -10,9 +11,9 @@ import { IFrame } from 'components/iframe'
 
 This article shows the steps on how to contribute to the project. It is recommended to read the [project structure](/getting-started/setup#project-structure) first.
 
-## Pre-requisites
+## Prerequisites
 
-This section is a reminder on how to commit, about the dos and don'ts, and other important notes.
+This section is a list of things you need to keep in mind when contributing to the project.
 
 ### How to commit better
 
@@ -20,24 +21,20 @@ The following video explains how to commit with better messages. It is recommend
 
 <IFrame src="https://www.youtube.com/embed/Hlp-9cdImSM?start=45" />
 
-### Dos and Don'ts
+### Reminders
 
-1. **Always** include backlog item code at the start.
-   **But**, for **commit messages**, you don't need to include the code if:
+1. **Always** check which branch you are in.
 
-- you're working in a subtask branch or
-- you just refactored/cleaned some code.
+2. **Always** include backlog item code at the start. For commit messages, you don't need to include the code **if** you just refactored/cleaned some code.
 
-2. For branches, try to limit up to 3 words as much as possible. Spaces are replaced with hyphen. Example:
-
-```md
-ALT-6-add-item
-```
-
-3. For commits, type the changes you've made in **detail** as much as possible. Example:
+3. For commits, type the changes you've made in **detail** as much as possible (which was explained in the video above). Use newline to separate the title and the description.
+   Example:
 
 ```md
-Example: ALT-10 Added a prototype for table data
+ALT-10 Added a prototype for table data
+
+The table data will be used for the dashboard page.
+The table data will be fetched from the database.
 ```
 
 4. If you have installed a new npm package, always inform the team and include it in the commit as well as in the PR description. Example:
@@ -53,25 +50,68 @@ It is everyone's responsibility to run `npm install` in their local repository.
 
 5. When switching branches, always `npx prisma generate` to generate the schema. This is to avoid errors when running the app.
 
-## Pull Request (PR)
+6. If you're done with the task, **always** `git pull origin main`. This is to avoid conflicts when merging the PR.
+   <Callout>
+     **Why?** We want to pull the changes from everyone before pushing our code to the remote
+     repository. Doing so will ensure that our local copy is in sync with new changes made by the
+     team in the remote repository. Developers **MUST TEST** if everything is working by checking
+     the web app (runtime errors/design fails) or the code (overwritten/missing files).
+   </Callout>
+
+## Trunk Based Development
+
+Make sure you have been assigned a task in the [backlog](https://alt-ahead.atlassian.net/jira/software/projects/ALT/boards/1/backlog). Ask the <TL name="team leader" /> for a task if you haven't been assigned one.
+Follow steps 1-3 if you're starting a new task. If you're done with the task, follow steps 4-7. If you're done with the task and you're ready to merge, follow steps 8-10.
 
 <Steps>
-### Go to the repository
 
-### Find your branch and click "Compare & pull request"
+### Create a new branch from main.
 
-### Enter title and description
+For VS Code:
 
-The title must be in this format: `ALT-# Given task title`
+1. Make sure you're on the `main` branch by checking lower-left of status bar.
+2. Go to Source Control (`Ctrl+Shift+G`)
+3. Open actions menu (the 3 dots) then Branch > Create Branch...
+4. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
+5. Click "Publish Branch".
 
-```md
-ALT-2 Create a new page for the dashboard
-```
+For Github Desktop:
 
-Use the following template for the description:
+1. Make sure you're on the `main` branch by checking "Current branch".
+2. Go to Branch > New Branch or `Ctrl+Shift+N`
+3. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
+4. Select `main` branch then click "Create branch".
+5. Click "Publish branch".
+
+### Code 🧑‍💻
+
+### Commit and push.
+
+1. Stage your files.
+
+- For VSCode, press `+`
+- For Github Desktop, open cmd, do `git status`, then `git add <file path>`
+
+2. (Optional) Run `npx lint-staged` to check for linting errors.
+3. Enter [commit message](#how-to-commit-better) (check [reminders](#reminders)) then commit.
+4. Push/Sync.
+
+### Pull from `main` branch.
+
+Perform `git pull origin main` to get the latest changes from the `main` branch.
+
+### Pull Request (PR)
+
+1. Go to [repository's pull requests](https://github.com/ubergonmx/alt-tutors/pulls).
+2. Click "New pull request".
+3. Click `compare: main` then select your branch to PR (e.g `compare: ALT-68-Sidebar-menu`).
+4. Click "Create pull request".
+5. For the title, it must be in this format: `ALT-# Given task title` (e.g., `ALT 68 sidebar menu` to `ALT-68 Sidebar menu`). Take note of the casing and the hyphen.
+
+6. For the description, follow the format below (you can copy-paste this):
 
 ```md {1} copy
-# [ALT-#](link) insert title here
+# [ALT-#](link) <Copy the title here>
 
 ## What type of PR is this? (select all that apply)
 
@@ -97,113 +137,38 @@ Use the following template for the description:
 - Possible conflict between db schema of Draft 3 and NextAuth (for Google OAuth)
 ```
 
-### Add reviewers
-
-Add the TL and the team members who are familiar with the task.
-
-### Click "Create pull request"
-
-### Wait for approval
-
-Let the reviewers review your code. If there are changes to be made, make the changes and commit again. If there are no changes to be made, the reviewers will approve the PR.
-
-### Merge the PR
-
-After the PR is approved, merge the PR. If there are conflicts, resolve the conflicts. If there are no conflicts, merge the PR.
-
-### Pull from development
-
-After the PR is merged, pull from development to get the latest changes.
-
-### Delete the branch
-
-After pulling from development, delete the branch. This is to avoid confusion when creating a new branch.
-
-### Done!
-
-</Steps>
-### Important note
-
-If you're done with the branch, let's say last commit na or tapos ka na and ready na for PR (Pull request), **always** `git pull origin development` before PR.
-
-**How?**
-(Assuming na hindi nyo pa ginagalaw code after ng last commit)
-
-- For VS Code users, open your terminal (Ctrl+\`) and type `git pull origin development`
-- For Github Desktop users, open command prompt (sa repo folder) and type `git pull origin development`
-
-**Why?**
-We want to pull the changes from everyone before pushing our code to the remote repository. Doing so will ensure that our local copy is in sync with new changes made by the team in the remote repository. If there are conflicts when pulling, we can resolve conflicts. **Developers MUST TEST** if everything is working by checking the web app (kung may nasira ba) or the code (kung may na overwrite/nawala).
-
-## Trunk Based Development
-
-<Steps>
-**How do I start working on a user story/task/subtask?**
-
-### Notify the team.
-
-Use #general or in Messenger gc if you're going to work on a task.
-Change the state in JIRA to `In Progress`.
-
-### Create a new branch from development.
-
-_(For VS Code)_
-
-1. Make sure you're on the `development` branch by checking lower-left of status bar.
-2. Go to Source Control (`Ctrl+Shift+G then G`)
-3. Open actions menu (the 3 dots) then Branch > Create Branch...
-4. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
-5. Click "Publish Branch."
-   _(For Github Desktop)_
-6. Make sure you're on the `development` branch by checking "Current branch."
-7. Go to Branch > New Branch or `Ctrl+Shift+N`
-8. Enter the code and title with spaces as hyphen (e.g `ALT-68-Sidebar-menu`).
-9. Select `development` branch then click "Create branch."
-10. Click "Publish branch."
-
-### Code 🧑‍💻
-
-### Commit and push.
-
-1. Stage your files.
-
-- For VSCode, press `+`
-- For Github Desktop, open cmd, do `git status`, then `git add <file path>`
-
-2. Run `npx lint-staged` to format code.
-3. Commit (apply coding standard) then Push/Sync.
-
-**Now that I am done with the task, what do I do now?**
-
-### Pull from development.
-
-### Pull Request (PR)
-
-1. Go to https://github.com/erik-lance/TitafindsXG5/pulls
-2. Click "New pull request."
-3. Click `base: main` then select `development` branch.
-4. Click `compare: main` then select the branch to PR (e.g `compare: ALT-68-Sidebar-menu`).
-5. Click "Create pull request".
-6. For the title, edit the code like `ALT 68 sidebar menu` to `ALT-68 sidebar menu`.
-7. For the description, follow this example https://github.com/erik-lance/TitafindsXG5/pull/9
-8. For the reviewers, add @pseudo1337 and @Quality Assurance.
-9. Click "Create pull request".
+7. For the reviewers, add the team members who are familiar with the task.
+8. Click "Create pull request".
 
 ### Notify the team for Code Review.
 
-Note: If the branch is a user story, change the state to `Ready for QA` in JIRA.
-@Quality Assurance **must** test the feature on the web app and try breaking the system.
-@Developer can review the code (new changes, mistakes, etc.)
+Chat at Discord and tag the team members who are assigned as the reviewers.
+Let the reviewers review your code. If there are changes to be made, make the changes and commit again. If there are no changes to be made, the reviewers will approve the PR.
 
-**The team has finished reviewing and all is working. What's next?**
+For reviewers:
 
-### Merge and then delete the branch. Simply click the buttons.
+- Check the PR if it follows the [pull request format](#pull-request-pr).
+- Check the code if it follows the [coding standards](/getting-started/workflow/standards). If it doesn't, you can comment to the PR (or file) to link them to the coding standards page with the hyperlink. Example:
 
-Note: If the branch is a user story, change the state to `Ready for Review` in JIRA.
+```md
+Not following [folder naming convention](https://alt-tutors-docs.vercel.app/getting-started/workflow/standards#files-and-folders) for `signUp`. Please rename to `sign-up` folder.
+```
+
+- Check if the code is working as intended. If there are errors/bugs, comment them with the screenshot and the possible solution.
+- Check if the code is documented properly.
+- Check if the code is tested properly.
+
+### Merge the PR
+
+If the branch is out of date, go to VS Code terminal and type `git pull origin main` to update the branch. If there are conflicts, resolve them first before merging.
+
+### Delete the branch
+
+After merging the PR, delete the branch. This is to avoid confusion when creating a new branch.
 
 ### Update and clean your local repo.
 
-Switch to `development` branch then click the 🔄️ button; either VS Code (lower-left) or Github Desktop.
+Switch to `main` branch then click the 🔄️ button; either VS Code (lower-left) or Github Desktop.
 Since the deletion of the branch only happens in remote/cloud, we need to clean our local repo:
 
 1. Open command prompt in our repo folder (or use terminal in VS Code)
@@ -212,5 +177,6 @@ Since the deletion of the branch only happens in remote/cloud, we need to clean 
 
 ### Take a quick break. Don't forget to rest!
 
+You deserve it! 🎉
+
 </Steps>
-```
