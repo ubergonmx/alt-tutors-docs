@@ -1,5 +1,7 @@
 import { Callout, Steps } from 'nextra/components'
 import { IFrame } from 'components/iframe'
+import { Screenshot } from 'components/screenshot'
+import Video from 'components/video'
 import { TL } from 'components/members'
 
 # Contributing Guidelines
@@ -61,7 +63,7 @@ It is everyone's responsibility to run `npm install` in their local repository.
 ## Trunk Based Development
 
 Make sure you have been assigned a task in the [backlog](https://alt-ahead.atlassian.net/jira/software/projects/ALT/boards/1/backlog). Ask the <TL name="team leader" /> for a task if you haven't been assigned one.
-Follow steps 1-3 if you're starting a new task. If you're done with the task, follow steps 4-7. If you're done with the task and you're ready to merge, follow steps 8-10.
+Follow steps 1-3 if you're starting a new task. If you're done with the task, follow steps 4-6. If your PR has been reviewed and approved, follow steps 7-10.
 
 <Steps>
 
@@ -145,26 +147,36 @@ Perform `git pull origin main` to get the latest changes from the `main` branch.
 Chat at Discord and tag the team members who are assigned as the reviewers.
 Let the reviewers review your code. If there are changes to be made, make the changes and commit again. If there are no changes to be made, the reviewers will approve the PR.
 
-For reviewers:
+For reviewers, here's a checklist:
 
-- Check the PR if it follows the [pull request format](#pull-request-pr).
-- Check the code if it follows the [coding standards](/getting-started/workflow/standards). If it doesn't, you can comment to the PR (or file) to link them to the coding standards page with the hyperlink. Example:
+- [ ] Follows the [pull request format](#pull-request-pr).
+- [ ] Follows the [coding standards](/getting-started/workflow/standards). If it doesn't, you can comment to the PR (or file) to link them to the coding standards page with the hyperlink. Example:
 
 ```md
 Not following [folder naming convention](https://alt-tutors-docs.vercel.app/getting-started/workflow/standards#files-and-folders) for `signUp`. Please rename to `sign-up` folder.
 ```
 
-- Check if the code is working as intended. If there are errors/bugs, comment them with the screenshot and the possible solution.
-- Check if the code is documented properly.
-- Check if the code is tested properly.
+- [ ] Working as intended. If there are errors/bugs, comment them with the screenshot and the possible solution.
+- [ ] Documented properly.
+- [ ] Tested properly.
+
+Here's a short video how to review a PR:
+
+<Video src="/videos/pr-review.mp4" />
 
 ### Merge the PR
+
+After the PR has been approved, simply click the "Merge pull request" button.
+
+import outOfDateBranch from '../../../public/images/out-of-date-branch.png'
+
+<Screenshot src={outOfDateBranch} alt="Out of date branch" />
 
 If the branch is out of date, go to VS Code terminal and type `git pull origin main` to update the branch. If there are conflicts, resolve them first before merging.
 
 ### Delete the branch
 
-After merging the PR, delete the branch. This is to avoid confusion when creating a new branch.
+After merging the PR, delete the branch. This is to avoid clutter in the repo.
 
 ### Update and clean your local repo.
 
@@ -180,3 +192,19 @@ Since the deletion of the branch only happens in remote/cloud, we need to clean 
 You deserve it! 🎉
 
 </Steps>
+
+## Common issues
+
+If you encounter the following error when commiting:
+
+import failedToCommit from '../../../public/images/failed-to-commit.png'
+
+<Screenshot src={failedToCommit} alt="Failed to commit" />
+
+This is because an error has been found in your code. You can run `npx lint-staged` to see what checks failed. If there are no errors, you can commit again.
+
+<Callout>
+  When you encounter an error, try to search for the error message in Google. If you can't find the
+  solution, ask the team for help. If you found the solution, please document it in the `#docs`
+  channel in Discord.
+</Callout>
