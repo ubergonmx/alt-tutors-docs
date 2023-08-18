@@ -4,7 +4,7 @@ import { Callout } from 'nextra/components'
 
 #### Author: Aaron Palpallatoc
 
-<Callout type="warning">This article is tentatively placed here and will be removed soon. For now, this will be updated regularly.</Callout>
+<Callout type="warning">This article is outdated and will be removed soon.</Callout>
 
 I will be documenting here the things I did for the setup. This will serve as my reference for future projects.
 
@@ -246,7 +246,7 @@ npm i @total-typescript/ts-reset server-only zod @tanstack/react-query axios dat
 13. Create `src/types/reset.d.ts` file in types folder (refer [here](#file--folder-structure)).
 
 ```ts
-import "@total-typescript/ts-reset";
+import '@total-typescript/ts-reset'
 ```
 
 14. Install [_backend_](#backend) packages.
@@ -290,73 +290,74 @@ npm i clsx tailwind-merge class-variance-authority lucide-react react-hook-form
 20. In `src/lib`, add the following files.
 
 ```ts filename="db.ts"
-import { PrismaClient } from "@prisma/client";
-import "server-only";
+import { PrismaClient } from '@prisma/client'
+import 'server-only'
 
 declare global {
   // eslint-disable-next-line no-var, no-unused-vars
-  var cachedPrisma: PrismaClient;
+  var cachedPrisma: PrismaClient
 }
 
-let prisma: PrismaClient;
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
+let prisma: PrismaClient
+if (process.env.NODE_ENV === 'production') {
+  prisma = new PrismaClient()
 } else {
   if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClient();
+    global.cachedPrisma = new PrismaClient()
   }
-  prisma = global.cachedPrisma;
+  prisma = global.cachedPrisma
 }
 
-export const db = prisma;
+export const db = prisma
 ```
 
 ```ts filename="utils.ts"
-import { ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { formatDistanceToNowStrict } from "date-fns";
-import locale from "date-fns/locale/en-US";
+import { ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+import { formatDistanceToNowStrict } from 'date-fns'
+import locale from 'date-fns/locale/en-US'
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 const formatDistanceLocale = {
-  lessThanXSeconds: "just now",
-  xSeconds: "just now",
-  halfAMinute: "just now",
-  lessThanXMinutes: "{{count}}m",
-  xMinutes: "{{count}}m",
-  aboutXHours: "{{count}}h",
-  xHours: "{{count}}h",
-  xDays: "{{count}}d",
-  aboutXWeeks: "{{count}}w",
-  xWeeks: "{{count}}w",
-  aboutXMonths: "{{count}}m",
-  xMonths: "{{count}}m",
-  aboutXYears: "{{count}}y",
-  xYears: "{{count}}y",
-  overXYears: "{{count}}y",
-  almostXYears: "{{count}}y",
-};
+  lessThanXSeconds: 'just now',
+  xSeconds: 'just now',
+  halfAMinute: 'just now',
+  lessThanXMinutes: '{{count}}m',
+  xMinutes: '{{count}}m',
+  aboutXHours: '{{count}}h',
+  xHours: '{{count}}h',
+  xDays: '{{count}}d',
+  aboutXWeeks: '{{count}}w',
+  xWeeks: '{{count}}w',
+  aboutXMonths: '{{count}}m',
+  xMonths: '{{count}}m',
+  aboutXYears: '{{count}}y',
+  xYears: '{{count}}y',
+  overXYears: '{{count}}y',
+  almostXYears: '{{count}}y',
+}
 
 function formatDistance(token: string, count: number, options?: any): string {
-  options = options || {};
+  options = options || {}
 
-  const result = formatDistanceLocale[
-    token as keyof typeof formatDistanceLocale
-  ].replace("{{count}}", count.toString());
+  const result = formatDistanceLocale[token as keyof typeof formatDistanceLocale].replace(
+    '{{count}}',
+    count.toString()
+  )
 
   if (options.addSuffix) {
     if (options.comparison > 0) {
-      return "in " + result;
+      return 'in ' + result
     } else {
-      if (result === "just now") return result;
-      return result + " ago";
+      if (result === 'just now') return result
+      return result + ' ago'
     }
   }
 
-  return result;
+  return result
 }
 
 export function formatTimeToNow(date: Date): string {
@@ -366,24 +367,24 @@ export function formatTimeToNow(date: Date): string {
       ...locale,
       formatDistance,
     },
-  });
+  })
 }
 ```
 
 ```ts filename="auth.ts"
-import { db } from "@/lib/db";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { nanoid } from "nanoid";
-import { NextAuthOptions, getServerSession } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import { db } from '@/lib/db'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { nanoid } from 'nanoid'
+import { NextAuthOptions, getServerSession } from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   pages: {
-    signIn: "/sign-in",
+    signIn: '/sign-in',
   },
   providers: [
     GoogleProvider({
@@ -394,14 +395,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-        session.user.username = token.username;
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.image = token.picture
+        session.user.username = token.username
       }
 
-      return session;
+      return session
     },
 
     async jwt({ token, user }) {
@@ -409,11 +410,11 @@ export const authOptions: NextAuthOptions = {
         where: {
           email: token.email,
         },
-      });
+      })
 
       if (!dbUser) {
-        token.id = user!.id;
-        return token;
+        token.id = user!.id
+        return token
       }
 
       if (!dbUser.username) {
@@ -424,7 +425,7 @@ export const authOptions: NextAuthOptions = {
           data: {
             username: nanoid(10),
           },
-        });
+        })
       }
 
       return {
@@ -433,15 +434,15 @@ export const authOptions: NextAuthOptions = {
         email: dbUser.email,
         picture: dbUser.image,
         username: dbUser.username,
-      };
+      }
     },
     redirect() {
-      return "/";
+      return '/'
     },
   },
-};
+}
 
-export const getAuthSession = () => getServerSession(authOptions);
+export const getAuthSession = () => getServerSession(authOptions)
 ```
 
 22. Initialize shadcn-ui, and press <kbd>Enter</kbd> to all prompts except for `globals` which is located at `src/styles/globals.css`. Remove the default `src/app/globals.css` and fix import errors.
