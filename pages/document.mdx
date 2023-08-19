@@ -85,7 +85,7 @@ In this file and folder structure:
 ```tsx copy
 import styles from './style.module.css'
 
-export const ComponentName = () => {
+export function ComponentName() {
   return <div className={styles.container}>...do something here...</div>
 }
 ```
@@ -105,7 +105,7 @@ To import a custom component, you can use the following syntax if there is no `d
 
 ```tsx
 // component with no default export
-export const ComponentName = () => {
+export function ComponentName() {
   return <div>...do something here...</div>
 }
 
@@ -117,7 +117,7 @@ otherwise you can use the following syntax:
 
 ```tsx /default/
 // component with default export
-export default const ComponentName = () => {
+export default function ComponentName() {
   return <div>...do something here...</div>
 }
 
@@ -129,7 +129,15 @@ import ComponentName from 'components/<component name>'
 
 Unfortunately, Tailwind CSS isn't working in this documentation site.
 You can use Nextra's Tailwind CSS which is still Tailwind CSS but with limited class names.
-You can check the `node_modules/nextra-theme-docs/style.css` file to see the available class names.
+You can check the `node_modules/nextra-theme-docs/style.css` file and [unminify](https://mrcoles.com/blog/css-unminify/) it to see properly the available class names.
 
-To style a component with Nextra's Tailwind CSS, just use Tailwind CSS syntax with `nx-` prefix. If it doesn't work, it means that that class name doesn't exist in the `style.css` file.
+To style a component with Nextra's Tailwind CSS, just use Tailwind CSS syntax with `nx-` prefix. For example:
+
+```tsx
+<p className="nx-mt-10">This is a paragraph with a margin top of 2.5rem.</p>
+```
+
+If it doesn't work, it means that that class name doesn't exist in the `style.css` file.
 Alternatively, you can create and use `style.module.css` file.
+
+For colors, you can check the `.dark` and `.light` classes in the `style.css` file. The color variables usually start with `--shiki-` prefix.

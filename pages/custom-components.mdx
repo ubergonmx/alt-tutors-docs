@@ -1,4 +1,6 @@
 import { Callout, Steps } from 'nextra-theme-docs'
+import { OptionTable } from 'components/table'
+import { TL, Member } from 'components/members'
 
 # List of Created Components
 
@@ -69,22 +71,132 @@ import { IFrame } from 'components/iframe'
 
 ### Props
 
+<OptionTable options={[['src', 'string', 'Loads the URL for the iframe.']]} />
+
 ## Members
 
-This component is used to display a list of members. It's used in the [Team](/team#current-members) page.
+This component is used to display a list of members. It's used in the [Team](/team#current-members) page. It also has <TL>TL</TL> and <Member>Member</Member> components that are used to display color-coded text.
+
+### How to Use
+
+```mdx
+import Members, { TL, Member } from 'components/members'
+
+<Members current={true} />
+<TL> team leader </TL>
+<Member> member </Member>
+```
+
+### Props
+
+<OptionTable
+  options={[
+    ['current', 'boolean', 'Displays current or past (false) members working in the project'],
+  ]}
+/>
+
+### For TL and PM
+
+To add a new member, you need to add a new object to the `members` array in the `members.json` file. The object should have the following properties:
+
+- `name` - The name of the member.
+- `isTeamLead` - A boolean value that indicates if the member is a team lead.
+- `isCurrentMember` - A boolean value that indicates if the member is a current member or a past member.
+- `roles` - An object that contains the roles of the member. The keys are the roles and the values are boolean values that indicate if the member has that role or not.
+- `programmingLanguages` - An array of strings that contains the programming languages that the member knows.
+- `frameworksAndLibraries` - An array of strings that contains the frameworks and libraries that the member knows.
+- `tools` - An array of strings that contains the tools that the member knows.
+
+For example:
+
+```json copy
+{
+  "name": "John Doe",
+  "isTeamLead": true,
+  "isCurrentMember": false,
+  "roles": {
+    "UI/UX": true,
+    "Front-end": true,
+    "Back-end": false
+  },
+  "programmingLanguages": ["HTML", "CSS", "SCSS", "JavaScript", "Python", "C++"],
+  "frameworksAndLibraries": ["Bootstrap", "ReactJS"],
+  "tools": ["Figma", "Photoshop", "Illustrator", "Adobe XD"]
+},
+```
 
 ## Screenshot
 
-This component is used to display a screenshot of the app. It's used in the `Features` component.
+This component is used to display a screenshot or any images. An example use of this can be found in [Join the Team](/getting-started/join#select-roles) and [Contributing](/getting-started/workflow/contributing#pull-request-pr) pages.
 
-## Table
+### How to Use
 
-This component is used to display a table. It's used in the `Features` component.
+```mdx
+import { Screenshot } from 'components/screenshot'
+import outOfDateBranch from '../../../public/images/out-of-date-branch.png'
+
+<Screenshot src={outOfDateBranch} alt="Out of date branch" />
+{/* or use absolute link if you don't want to use import */}
+<Screenshot src="/images/out-of-date-branch.png" alt="Out of date branch" />
+```
+
+### Props
+
+<OptionTable
+  options={[
+    ['src', 'string', 'Loads the image for the screenshot.'],
+    ['alt', 'string', 'The alt text for the screenshot.'],
+  ]}
+/>
+
+## OptionTable
+
+This component is used to display a table with the following headers: `Option`, `Type`, and `Description`. It's used in the `Props` section of the documentation pages.
+
+### How to Use
+
+```mdx
+import { OptionTable } from 'components/table'
+
+<OptionTable
+  options={[
+    ['src', 'string', 'Loads the image for the screenshot.'],
+    ['alt', 'string', 'The alt text for the screenshot.'],
+  ]}
+/>
+```
+
+### Props
+
+<OptionTable
+  options={[
+    [
+      'options',
+      'array<string, string, string>',
+      'An array of arrays that contains the data for the table.',
+    ],
+  ]}
+/>
 
 ## Utils
 
-This component contains utility functions that are used in other components.
+<Callout type="error">
+  This component is not used in the project. The <TL>team leader</TL> can remove this component if
+  it's not needed.
+</Callout>
 
 ## Video
 
-This component is used to display a video. It's used in the `Features` component.
+This component is used to display a video. An example use of this can be found in [Contributing](/getting-started/workflow/notify-the-team-for-code-review) page.
+
+### How to Use
+
+```mdx
+import { Video } from 'components/video'
+
+<Video src="/videos/pr-review.mp4" />
+```
+
+### Props
+
+<OptionTable options={[['src', 'string', 'Loads the video.']]} />
