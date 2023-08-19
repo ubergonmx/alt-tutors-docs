@@ -34,7 +34,8 @@
     "title": "Documentation",
     "type": "separator"
   },
-
+  "document": "Building Documentation",
+  "custom-components": "Custom Components",
   "team": {
     "title": "Team",
     "type": "page",

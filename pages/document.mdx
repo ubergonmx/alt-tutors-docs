@@ -1,0 +1,69 @@
+import { FileTree } from 'nextra/components'
+
+# Managing ALT Tutors Docs
+
+This article shows how to manage and document this documentation site.
+This documentation site is built using Nextra, a Markdown-based content builder for Next.js.
+
+## Prerequisites
+
+All you need to learn is in the [Nextra documentation](https://nextra.site/docs/guide). Here is the cheat sheet of [Markdown](https://www.markdownguide.org/cheat-sheet#basic-syntax) you can check.
+
+## Naming Conventions
+
+The following are the naming conventions used in this documentation site:
+
+1. All files and folders are in `kebab-case` which are in lowercase and uses hyphens to separate words. For example, `how-to-document.md` instead of `HowToDocument.md` or `how_to_document.md`.
+2. As much as possible, limit the name of the file to 1-3 words. For example, `how-to-document.md` instead of `how-to-document-in-this-site.md`. You can modify the title in `_meta.json` to make it more descriptive.
+
+## File and Folder Structure
+
+The following incomplete file and folder structure shows how to organize the documentation site:
+
+<FileTree>
+  {/* pages folder */}
+  <FileTree.Folder name="pages" defaultOpen>
+    <FileTree.File name="_meta.json" />
+    <FileTree.File name="index.mdx" />
+    <FileTree.File name="<document name>.mdx" />
+    <FileTree.Folder name="<grouped section>" defaultOpen>
+      <FileTree.File name="_meta.json" />
+      <FileTree.File name="document.mdx" />
+      <FileTree.File name="document.mdx" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  {/* public folder */}
+  <FileTree.Folder name="public" defaultOpen>
+    <FileTree.File name="alt-tutors-docs.png" />
+    <FileTree.Folder name="images">
+      <FileTree.File name="failed-to-commit.png" />
+    </FileTree.Folder>
+    <FileTree.Folder name="videos">
+      <FileTree.File name="pr-review.mp4" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+  {/* components folder */}
+  <FileTree.Folder name="components" defaultOpen>
+    <FileTree.Folder name="<component name>" defaultOpen>
+      <FileTree.File name="index.tsx" />
+      <FileTree.File name="style.module.tsx (optional)" />
+    </FileTree.Folder>
+    <FileTree.Folder name="members">
+      <FileTree.File name="index.tsx" />
+      <FileTree.File name="style.module.tsx" />
+      <FileTree.File name="members.json" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
+
+### Pages Folder
+
+The `pages` folder contains all the pages of the documentation site. The `index.mdx` file is the home page of the documentation site. The `_meta.json` file contains the metadata of the documentation site. The `<document name>.mdx` files are the documents of the documentation site. The `<grouped section>` folder contains the documents that are grouped together.
+
+### Public Folder
+
+The `public` folder contains all the public files of the documentation site. The `alt-tutors-docs.png` file is the logo of the documentation site. The `images` folder contains all the images used in the documentation site. The `videos` folder contains all the videos used in the documentation site.
+
+### Components Folder
+
+The `components` folder contains all the components used in the documentation site. The `<component name>` folder contains the component files. The `index.tsx` file is the component file. The `style.module.tsx` file is the component style file. The `members` folder contains the members component files. The `index.tsx` file is the members component file. The `style.module.tsx` file is the members component style file. The `members.json` file contains the members data.
