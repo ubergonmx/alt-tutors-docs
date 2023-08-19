@@ -7,7 +7,7 @@ This documentation site is built using Nextra, a Markdown-based content builder 
 
 ## Prerequisites
 
-All you need to learn is in the [Nextra documentation](https://nextra.site/docs/guide). Here is the cheat sheet of [Markdown](https://www.markdownguide.org/cheat-sheet#basic-syntax) you can check.
+All you need to learn is in the [Nextra documentation](https://nextra.site/docs/guide). Here is the cheat sheet of [Markdown](https://www.markdownguide.org/cheat-sheet#basic-syntax) that you can use.
 
 ## Naming Conventions
 
@@ -18,27 +18,26 @@ The following are the naming conventions used in this documentation site:
 
 ## File and Folder Structure
 
-The following incomplete file and folder structure shows how to organize the documentation site:
+The following file and folder structure is a presentation on how to organize the documentation site:
 
 <FileTree>
   {/* pages folder */}
   <FileTree.Folder name="pages" defaultOpen>
     <FileTree.File name="_meta.json" />
     <FileTree.File name="index.mdx" />
-    <FileTree.File name="<document name>.mdx" />
-    <FileTree.Folder name="<grouped section>" defaultOpen>
+    <FileTree.File name="<pageA>.mdx" />
+    <FileTree.Folder name="<pageA>" defaultOpen>
       <FileTree.File name="_meta.json" />
-      <FileTree.File name="document.mdx" />
-      <FileTree.File name="document.mdx" />
+      <FileTree.File name="<page>.mdx" />
     </FileTree.Folder>
   </FileTree.Folder>
   {/* public folder */}
   <FileTree.Folder name="public" defaultOpen>
     <FileTree.File name="alt-tutors-docs.png" />
-    <FileTree.Folder name="images">
+    <FileTree.Folder name="images" defaultOpen>
       <FileTree.File name="failed-to-commit.png" />
     </FileTree.Folder>
-    <FileTree.Folder name="videos">
+    <FileTree.Folder name="videos" defaultOpen>
       <FileTree.File name="pr-review.mp4" />
     </FileTree.Folder>
   </FileTree.Folder>
@@ -48,22 +47,89 @@ The following incomplete file and folder structure shows how to organize the doc
       <FileTree.File name="index.tsx" />
       <FileTree.File name="style.module.tsx (optional)" />
     </FileTree.Folder>
-    <FileTree.Folder name="members">
-      <FileTree.File name="index.tsx" />
-      <FileTree.File name="style.module.tsx" />
-      <FileTree.File name="members.json" />
-    </FileTree.Folder>
   </FileTree.Folder>
 </FileTree>
 
 ### Pages Folder
 
-The `pages` folder contains all the pages of the documentation site. The `index.mdx` file is the home page of the documentation site. The `_meta.json` file contains the metadata of the documentation site. The `<document name>.mdx` files are the documents of the documentation site. The `<grouped section>` folder contains the documents that are grouped together.
+The [Nextra Documentation](https://nextra.site/docs/docs-theme/page-configuration#pages) shows you **the complete guide** on how to configure the pages of the documentation site.
+
+In summary:
+
+- The `pages` folder contains all the pages of the documentation site.
+- The `index.mdx` file is the home page of the documentation site.
+- The `_meta.json` file contains the metadata and configuration of the documentation site.
+- The `<page>.mdx` files and the like, are the pages of the documentation site. Depending on their setting in `_meta.json`, they can be in the sidebar or navbar. Keep in mind the [naming conventions](#naming-conventions) when creating a page file.
+- The `<pageA>` folder contains the subpages or documentation that are grouped together. You can make the `<pageA>` a visitable page by adding the `<pageA>.mdx` file, otherwise it just adds a dropdown on it in the sidebar. In the file and folder structure above, the `<pageA>` folder is visitable.
 
 ### Public Folder
 
-The `public` folder contains all the public files of the documentation site. The `alt-tutors-docs.png` file is the logo of the documentation site. The `images` folder contains all the images used in the documentation site. The `videos` folder contains all the videos used in the documentation site.
+The `public` folder contains all the assets of the documentation site.
+Keep in mind the [naming conventions](#naming-conventions) as well as the following when adding assets:
+
+- Any asset files that are for the site (such as logos like `alt-tutors-docs.png`) are placed in `publics` folder.
+- Any images used for tutorials, screenshots, etc. are placed in the `images` folder.
+- Any videos used for tutorials, demos, etc. are placed in the `videos` folder.
 
 ### Components Folder
 
-The `components` folder contains all the components used in the documentation site. The `<component name>` folder contains the component files. The `index.tsx` file is the component file. The `style.module.tsx` file is the component style file. The `members` folder contains the members component files. The `index.tsx` file is the members component file. The `style.module.tsx` file is the members component style file. The `members.json` file contains the members data.
+Most components used are built-ins which you can check in the [Nextra Documentation](https://nextra.site/docs/guide/built-ins).
+The custom components created and used in this documentation site can be found in [Custom Components](/custom-components) page.
+
+In this file and folder structure:
+
+- The `components` folder contains all the custom components used in the documentation site.
+- The `<component name>` folder contains the component files. Keep in mind the [naming conventions](#naming-conventions) when creating a component folder.
+- The `index.tsx` file is the component file. You can copy the starter code:
+
+```tsx copy
+import styles from './style.module.css'
+
+export const ComponentName = () => {
+  return <div className={styles.container}>...do something here...</div>
+}
+```
+
+- The `style.module.tsx` file is the component style file and is optional if you plan to style it with [Nextra's Tailwind CSS](#styling-with-nextras-tailwind-css).
+  You can style like this:
+
+```tsx
+.container {
+  ...add styles here...
+}
+```
+
+#### Importing custom components
+
+To import a custom component, you can use the following syntax if there is no `default{:jsx}` export:
+
+```tsx
+// component with no default export
+export const ComponentName = () => {
+  return <div>...do something here...</div>
+}
+
+// import
+import { ComponentName } from 'components/<component name>'
+```
+
+otherwise you can use the following syntax:
+
+```tsx /default/
+// component with default export
+export default const ComponentName = () => {
+  return <div>...do something here...</div>
+}
+
+// import
+import ComponentName from 'components/<component name>'
+```
+
+#### Styling with Nextra's Tailwind CSS
+
+Unfortunately, Tailwind CSS isn't working in this documentation site.
+You can use Nextra's Tailwind CSS which is still Tailwind CSS but with limited class names.
+You can check the `node_modules/nextra-theme-docs/style.css` file to see the available class names.
+
+To style a component with Nextra's Tailwind CSS, just use Tailwind CSS syntax with `nx-` prefix. If it doesn't work, it means that that class name doesn't exist in the `style.css` file.
+Alternatively, you can create and use `style.module.css` file.

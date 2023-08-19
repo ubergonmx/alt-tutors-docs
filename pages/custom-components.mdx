@@ -2,27 +2,27 @@ import { Callout, Steps } from 'nextra-theme-docs'
 
 # List of Created Components
 
-This page is the documentation for the components created for this project. Each component has a description of its purpose, a list of its props (if there's any), and a how-to-use section.
+This page is the documentation for the custom components created for this project. Each component has a description of its purpose, a list of its props (if there's any), and a how-to-use section.
 **If new components are created, they should be added to this list in alphabetical order.**
 
 ## Icons
 
-This component contains a limited list of svg icons that are manually copied and pasted from online sources. The icons are stored in the `icons` folder. The icons are imported into the `index.js` file and exported as a single component. The icons are used in the `Icon` component.
+This component contains a limited list of svg icons that are manually copied and pasted from online sources. The icons are stored in the `icons` folder and its code are imported into the `index.js` file and exported as a single component. The icons are used in the `Icon` component.
 
 ### How to Use
 
-```javascript
+```mdx
 import { Icon } from 'components/icons'
 
-<Icon.users /> Join the Team
+<Icon.box /> Download .zip
 ```
 
 ### How to Add New Icons
 
 1. Find and download an svg icon online. Make sure it's free to use and similar to the other icons in the list.
-1. Place the svg icon in the `icons` component folder.
-1. Open the svg file and copy its code.
-1. Add a new property inside `Icons` with the name of the icon, and set its value to an anonymous function that returns the svg code as a JSX element (paste it inside the parentheses).
+2. Place the svg icon in the `icons` component folder.
+3. Open the svg file and copy its code.
+4. Add a new property inside `Icons` with the name of the icon, and set its value to an anonymous function that returns the svg code as a JSX element (paste it inside the parentheses).
 
 **Example:**
 
@@ -53,14 +53,25 @@ export const Icons = {
 ### Sources for Icons
 
 - [Lucide Icons](https://lucide.dev/icons/)
+- You can search for other icons as long as they're free to use and similar to the other icons in the list.
 
 ## IFrame
 
-This component is used to display an iframe. It's used in the `Video` component.
+This component is used to display an `<iframe>{:jsx}` element which is useful if you want to embed a video or a map.
+
+### How to Use
+
+```mdx
+import { IFrame } from 'components/iframe'
+
+<IFrame src="https://www.youtube.com/embed/..." />
+```
+
+### Props
 
 ## Members
 
-This component is used to display a list of members. It's used in the `Team` component.
+This component is used to display a list of members. It's used in the [Team](/team#current-members) page.
 
 ## Screenshot
 
