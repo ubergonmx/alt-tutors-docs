@@ -1,3 +1,4 @@
+import React, { ReactNode } from 'react'
 import membersData from './members.json'
 import styles from './style.module.css'
 
@@ -39,7 +40,7 @@ export default function Members({ current }: { current: boolean }) {
               }
             >
               <td className="nx-whitespace-pre nx-py-2 nx-text-xs nx-leading-6">
-                {isTeamLead ? <TL name={name as string} /> : <Member name={name as string} />}
+                {isTeamLead ? <TL>{name}</TL> : <Member>{name}</Member>}
               </td>
               <td
                 className={
@@ -60,10 +61,10 @@ export default function Members({ current }: { current: boolean }) {
   )
 }
 
-export const TL = ({ name }: { name: string }) => {
-  return <span className={'nx-font-semibold ' + styles.teamLeader}>{name}</span>
+export const TL = ({ children }: { children: ReactNode }) => {
+  return <span className={'nx-font-semibold ' + styles.teamLeader}>{children}</span>
 }
 
-export const Member = ({ name }: { name: string }) => {
-  return <span className={styles.member}>{name}</span>
+export const Member = ({ children }: { children: ReactNode }) => {
+  return <span className={styles.member}>{children}</span>
 }
