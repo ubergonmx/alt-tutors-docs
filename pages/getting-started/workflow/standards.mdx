@@ -399,7 +399,7 @@ Keep in mind the following as well (for MySQL):
 2. Table names are in plural form (e.g., `users`, `users_addresses`). Field names are in singular form (e.g., `user`, `address`).
 3. Short names only - no more than three words.
 
-In order to follow to retain the rules above, utilize the [Prisma's `@map` attribute](https://www.prisma.io/docs/concepts/components/prisma-schema/names-in-underlying-database) to map the model and field names to the database table and column names.
+In order to retain the rules above, utilize the [Prisma's `@map` attribute](https://www.prisma.io/docs/concepts/components/prisma-schema/names-in-underlying-database) to map the model and field names to the database table and column names.
 
 ```prisma {3, 8, 9, 11} filename="schema.prisma"
 // Good
