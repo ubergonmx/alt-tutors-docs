@@ -30,7 +30,6 @@
       "name": "JR Gregg Victor Lagman",
       "isTeamLead": true,
       "isCurrentMember": false,
-      "isTeamLead": true,
       "roles": {
         "UI/UX": true,
         "Front-end": true,
@@ -104,8 +103,8 @@
     },
     {
       "name": "Aaron Gabriel Palpallatoc",
-      "isTeamLead": true,
-      "isCurrentMember": true,
+      "isTeamLead": false,
+      "isCurrentMember": false,
       "roles": {
         "UI/UX": false,
         "Front-end": true,
@@ -123,19 +122,6 @@
       "tools": ["Git", "Photoshop", "Figma", "Postman", "Cloudflare", "Fly.io"]
     },
     {
-      "name": "Will Bryan Jose",
-      "isTeamLead": false,
-      "isCurrentMember": false,
-      "roles": {
-        "UI/UX": false,
-        "Front-end": true,
-        "Back-end": true
-      },
-      "programmingLanguages": ["HTML", "CSS", "JS/TS", "C", "C#", "Python", "SQL"],
-      "frameworksAndLibraries": ["Django", "MySQL", "NodeJS"],
-      "tools": ["Git", "Photoshop"]
-    },
-    {
       "name": "Webster Navarro",
       "isTeamLead": true,
       "isCurrentMember": true,
@@ -145,7 +131,7 @@
         "Back-end": false
       },
       "programmingLanguages": ["CSS", "SASS", "JavaScript", "PHP"],
-      "frameworksAndLibraries": ["Django", "MySQL", "Laravel", "Bootstrap"],
+      "frameworksAndLibraries": ["MySQL", "Laravel", "Bootstrap"],
       "tools": ["Figma", "Postman", "Xampp", "DBeaver"]
     }
   ]
