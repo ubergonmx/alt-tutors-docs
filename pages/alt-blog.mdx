@@ -35,13 +35,13 @@ More detailed guide [here](https://victorbruce82.medium.com/setting-up-eslint-pr
 
 2. In your project folder, run the following command.
 
-```bash
-npm i --save-dev eslint prettier prettier-plugin-tailwindcss husky lint-staged eslint-config-prettier
+```bash copy
+npm i --save-dev eslint prettier prettier-plugin-tailwindcss husky lint-staged eslint-config-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ```
 
 3.  Create `.prettier.json` file.
 
-```json
+```json copy
 {
   "trailingComma": "es5",
   "bracketSpacing": true,
@@ -55,7 +55,7 @@ npm i --save-dev eslint prettier prettier-plugin-tailwindcss husky lint-staged e
 
 4.  Create `.prettierignore` file.
 
-```
+```txt copy
 node_modules
 build
 dist
@@ -69,7 +69,7 @@ public
 
 5.  Extend `prettier` in the eslint file `.eslintrc.json`.
 
-```json
+```json copy
 {
   "env": {
     "browser": true,
@@ -99,25 +99,30 @@ public
 
 6.  Install and configure husky and lint-staged.
 
-```bash
+```bash copy
 npx mrm@2 lint-staged
 ```
 
 > Double check if `npx lint-staged` exists in `.husky/pre-commit`.
 
+<Callout type="warning">
+  Husky `v9` has now simplified the process. In `.husky/pre-commit`, just erase everything except
+  `npx lint-staged`. In `package.json`, set `prepare` script to `husky`.
+</Callout>
+
 7. Include the following in `package.json` file.
 
-```json
+```json copy
 "scripts": {
     ...
+    "lint": "next lint",
     "types": "tsc --pretty --noEmit",
     "eslint": "eslint \"**/*.+(js|jsx|ts|tsx)\"",
     "eslint:fix": "eslint --fix \"**/*.+(js|jsx|ts|tsx)\"",
     "prettier": "prettier --check \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
     "prettier:fix": "prettier --write \"**/*.+(js|jsx|ts|tsx|json|yml|yaml|md|css)\"",
-    "lint": "next lint",
-    "prepare": "husky install",
-    "clean-local": "npx git-removed-branches --prune"
+    "clean-local": "npx git-removed-branches --prune",
+    "prepare": "husky",
 }
 ...
 "lint-staged": {
@@ -134,10 +139,16 @@ npx mrm@2 lint-staged
 > When your team clones your git repo, make sure [git](https://git-scm.com/downloads) is installed. They must run `npm i` and `npm run prepare` (or
 > `npx husky install`).
 
+<Callout>
+  If you encounter error when pushing, try the following: ```bash rm -rf .git/hooks/ npm uninstall
+  husky npm install --save-dev husky ```
+</Callout>
+
 8. Include `.eslintcache` to `.gitignore`
 
-```
+```txt copy
 # eslint
+
 .eslintcache
 ```
 
@@ -153,8 +164,8 @@ Include the following files in version control for the team.
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.format": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.format": "explicit"
   },
   "git.enableSmartCommit": false,
   "git.suggestSmartCommit": false
@@ -194,7 +205,6 @@ Include the following files in version control for the team.
     "bradlc.vscode-tailwindcss",
     "stivo.tailwind-fold",
     "prisma.prisma",
-    "figma.figma-vscode-extension",
     "mhutchie.git-graph"
   ]
 }
@@ -202,7 +212,7 @@ Include the following files in version control for the team.
 
 10. Create `.github/workflows/main.yml` file.
 
-```yaml filename="main.yml"
+```yaml filename="main.yml" copy
 name: Code Quality
 on:
   push:
@@ -233,37 +243,37 @@ jobs:
 
 11. Include the following in `tsconfig.json` file.
 
-```json
+```json copy
 "noUncheckedIndexedAccess": true
 ```
 
 12. Install [_optimization_](#optimization) packages.
 
-```bash
+```bash copy
 npm i @total-typescript/ts-reset server-only zod @tanstack/react-query axios date-fns nanoid
 ```
 
 13. Create `src/types/reset.d.ts` file in types folder (refer [here](#file--folder-structure)).
 
-```ts
+```ts copy
 import '@total-typescript/ts-reset'
 ```
 
 14. Install [_backend_](#backend) packages.
 
-```bash
+```bash copy
 npm i prisma @prisma/client next-auth @next-auth/prisma-adapter uploadthing @uploadthing/react react-dropzone
 ```
 
 15. Initialize Prisma (make sure you have Prisma VSCode extension too).
 
-```bash
+```bash copy
 npx prisma init --datasource-provider mysql
 ```
 
 16. Add the following to `.vscode/settings.json`.
 
-```json
+```json copy
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma",
     "editor.formatOnSave": false
@@ -272,7 +282,7 @@ npx prisma init --datasource-provider mysql
 
 17. Add the `relationMode` to `db` in `prisma/schema.prisma` (for Planetscale).
 
-```prisma
+```prisma copy
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
@@ -282,14 +292,14 @@ datasource db {
 
 18. Install [_frontend_](#frontend) packages.
 
-```bash
+```bash copy
 npm i clsx tailwind-merge class-variance-authority lucide-react react-hook-form
 ```
 
 19. Create [folders](#src) in `src` folder.
 20. In `src/lib`, add the following files.
 
-```ts filename="db.ts"
+```ts filename="db.ts" copy
 import { PrismaClient } from '@prisma/client'
 import 'server-only'
 
@@ -311,7 +321,7 @@ if (process.env.NODE_ENV === 'production') {
 export const db = prisma
 ```
 
-```ts filename="utils.ts"
+```ts filename="utils.ts" copy
 import { ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { formatDistanceToNowStrict } from 'date-fns'
@@ -371,7 +381,7 @@ export function formatTimeToNow(date: Date): string {
 }
 ```
 
-```ts filename="auth.ts"
+```ts filename="auth.ts" copy
 import { db } from '@/lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { nanoid } from 'nanoid'
@@ -447,13 +457,13 @@ export const getAuthSession = () => getServerSession(authOptions)
 
 22. Initialize shadcn-ui, and press <kbd>Enter</kbd> to all prompts except for `globals` which is located at `src/styles/globals.css`. Remove the default `src/app/globals.css` and fix import errors.
 
-```bash
+```bash copy
 npx shadcn-ui@latest init
 ```
 
 23. Install any shadcn-ui component. Practice `PascalCase` naming for components.
 
-```bash
+```bash copy
 npx shadcn-ui@latest add button
 ```
 
@@ -472,8 +482,8 @@ This may be messy but I will be listing here the stack I had in mind before.
 
 Icons must be svgs, some sources are:
 
-- feathericon
-- lucide icon
+- [feather](https://feathericons.com/)
+- [lucide icon](https://lucide.dev/icons/)
 
 #### Backend
 
