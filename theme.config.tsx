@@ -14,7 +14,11 @@ const config: DocsThemeConfig = {
 
     return (
       <>
-        <meta name="og:title" content={title ? title + ' – ALT Tutors Docs' : 'ALT Tutors Docs'} />
+        <meta property="og:url" content={url} />
+        <meta
+          property="og:title"
+          content={title ? title + ' – ALT Tutors Docs' : 'ALT Tutors Docs'}
+        />
         <meta property="og:description" content="Documentation for the ALT Tutors team" />
         <meta property="description" content="Documentation for the ALT Tutors team" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
